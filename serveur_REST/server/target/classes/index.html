@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <!-- jQuery -->
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-
+	<link rel="stylesheet" href="styles.css">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -14,12 +14,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Code local -->
-    <script src="all.js"></script>
+	<script src='jquery-2.1.3.js'/></script>
+	<script src="all.js"></script>
 </head>
 <body>
 <header>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">La Taverne Oubliée</a>
+	<nav class="navbar navbar-expand-lg navbar-center navbar-light bg-light" id="">
+		<a class="navbar-brand" href="index.html" ><img src="logo.png" id="logo">La Taverne Oubliée</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -35,7 +36,9 @@
 		</div>
 	</nav>	
 </header>
-	
+<div id="home">
+	<p>Bienvenue dans la Taverne Oubliée</p>
+</div>
 	
 	
 <div id="ins" style="display : none">
@@ -44,19 +47,18 @@
         <div class="col-md-6">
             <div class="form-group">
                 <h1>S'inscrire :</h1>
-                <input type="text" name="userdb" id="user" placeholder="Nom ?" class="form-control"/>
-                <input type="text" name="user" id="alias" placeholder="Surnom ?" class="form-control"/>
-                <input type="text" name="email" id="email" placeholder="Email ?" class="form-control"/>
-                <input type="password" name="user" id="passwd" placeholder="Mot de passe ?" class="form-control"/>
+			<input type="text" name="user" id="user" placeholder="Nom utilisateur" class="form-control"/>
+			<input type="text" name="lastname" id="lname" placeholder="Nom" class="form-control"/>
+			<input type="text" name="firstname" id="fname" placeholder="Prénom" class="form-control"/>
+                	<input type="password" name="user" id="passwd" placeholder="Mot de passe" class="form-control"/>
             </div>
-            <div class="btn-group" role="group">
-                <button type="button" id="get" class="btn btn-default">Lire</button>
-                <button type="button" id="post" class="btn btn-primary">Sauver</button>
-                <button type="button" id="list" class="btn btn-warning">Lister</button>
-            </div>
+		  <button id="insbutton" class="btn btn-default">Inscription</button>
         </div>
        
     </div>
+	<div id="reponse">
+		  	
+	</div>
 </div>
 </div>
 	
@@ -69,10 +71,9 @@
 					<input type="text" name="user" id="userlogin" placeholder="Login" class="form-control"/>
 					<input type="password" name="password" id="passwdlogin" placeholder="Password" class="form-control"/>
 					<br/>
-					<button id="login" class="btn btn-default">Login</button>
+					<button id="connectbutton" class="btn btn-default">Login</button>
 					<br/>
 				</div>
-				<button id="profile" class="btn btn-default">Profile</button>
 			</div>
 		</div>
 	</div>
@@ -85,30 +86,24 @@
 		getUser($('#user').val(), $('#alias').val())
 	});
 	$("#gotoins").click(function (){
-		$("#ins").css("display","inline");
-		$("#connect").css("display","none");
+		$("div").hide();
+		$("#ins").show();
 	});
 	$("#gotoconnect").click(function (){
-		console.log("click on inscription");
-		$("#connect").css("display","inline");
-		$("#ins").css("display","none");
+		$("div").hide();
+		$("#connect").show();
 	});
-	$("#post").click(function () {
-            postUser(
-            $('#user').val(),
-            $('#alias').val(),
-            $('#email').val(),
-            $('#passwd').val())});
-		$("#list").click(function () {
+	$("#insbutton").click(function () {
+		postUser(
+			 	$('#user').val(),
+                $('#lname').val(),
+                $('#fname').val(),
+                $('#passwd').val())});
 		listUsers()
 	});
-	$("#login").click(function () {
+	$("#connectbutton").click(function () {
 		login();
 	});
-	$("#profile").click(function () {
-		profile()
-	});
-});
 
  </script>
 </body>

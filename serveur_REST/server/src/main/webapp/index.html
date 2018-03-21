@@ -86,15 +86,13 @@
 		getUser($('#user').val(), $('#alias').val())
 	});
 	$("#gotoins").click(function (){
-		$("#ins").css("display","inline");
-		$("#connect").css("display","none");
-		$("#home").css("display","none");
+		$("body>div").hide();
+		$("#ins").show();
+		
 	});
 	$("#gotoconnect").click(function (){
-		console.log("click on inscription");
-		$("#connect").css("display","inline");
-		$("#ins").css("display","none");
-		$("#home").css("display","none");
+		$("body>div").hide();
+		$("#connect").show();
 	});
 	$("#insbutton").click(function () {
 		postUser(
