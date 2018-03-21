@@ -1,0 +1,10 @@
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/BDDFactory.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/UserResource.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/auth/AuthFilter.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/auth/BasicAuth.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/auth/AppSecurityContext.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/User.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/LoginResource.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/UserDao.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/api/Api.java
+/tmp/jersey-skeleton/server/src/main/java/fr/iutinfo/skeleton/servlet/Hello.java

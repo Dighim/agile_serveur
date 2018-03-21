@@ -1,0 +1,10 @@
+fr/iutinfo/skeleton/auth/AuthFilter.class
+fr/iutinfo/skeleton/api/Api.class
+fr/iutinfo/skeleton/api/LoginResource.class
+fr/iutinfo/skeleton/api/BDDFactory.class
+fr/iutinfo/skeleton/api/User.class
+fr/iutinfo/skeleton/api/UserDao.class
+fr/iutinfo/skeleton/auth/BasicAuth.class
+fr/iutinfo/skeleton/api/UserResource.class
+fr/iutinfo/skeleton/auth/AppSecurityContext.class
+fr/iutinfo/skeleton/servlet/Hello.class
