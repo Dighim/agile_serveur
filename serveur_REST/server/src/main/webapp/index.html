@@ -7,27 +7,43 @@
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Code local -->
     <script src="all.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Javascript (Single Page Application)</a></li>
-        </ul>
-    </div>
-</nav>
-
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">La Taverne Oubliée</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" id="gotoins" href="#">S'inscrire</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="gotoconnect" href="#">Se connecter</a>
+				</li>
+			</ul>
+		</div>
+	</nav>	
+</header>
+	
+	
+	
+<div id="ins" style="display : none">
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <h1>Utilisateur :</h1>
+                <h1>S'inscrire :</h1>
                 <input type="text" name="userdb" id="user" placeholder="Nom ?" class="form-control"/>
                 <input type="text" name="user" id="alias" placeholder="Surnom ?" class="form-control"/>
                 <input type="text" name="email" id="email" placeholder="Email ?" class="form-control"/>
@@ -39,49 +55,61 @@
                 <button type="button" id="list" class="btn btn-warning">Lister</button>
             </div>
         </div>
-        <div class="col-md-6">
-            <h1>S'identifier :</h1>
-            <div id="login_form">
-                <input type="text" name="user" id="userlogin" placeholder="Login" class="form-control"/>
-                <input type="password" name="password" id="passwdlogin" placeholder="Password" class="form-control"/>
-                <br/>
-                <button id="login" class="btn btn-default">Login</button>
-                <br/>
-            </div>
-            <button id="profile" class="btn btn-default">Profile</button>
-        </div>
+       
     </div>
-    <div class="row" style="margin-top: 20px;">
-    </div>
-    <div class="row" style="margin-top: 1em;">
-        <div class="panel panel-info">
-            <div class="panel-heading">Réponse</div>
-            <div class="panel-body" id="reponse">
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-			$(document).ready(function() {
-				$("#get").click(function () {
-				    getUser($('#user').val(), $('#alias').val())
-				    });
-				$("#post").click(function () {
-                    postUser(
-                        $('#user').val(),
-                        $('#alias').val(),
-                        $('#email').val(),
-                        $('#passwd').val())});
-				$("#list").click(function () {
-				    listUsers()
-				    });
-				$("#login").click(function () {
-				    login();
-				    });
-				$("#profile").click(function () {
-				    profile()
-				    });
-			});
+</div>
+</div>
+	
+<div id="connect" style="display : none">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="col-md-6">
+				<h1>S'identifier :</h1>
+				<div id="login_form">
+					<input type="text" name="user" id="userlogin" placeholder="Login" class="form-control"/>
+					<input type="password" name="password" id="passwdlogin" placeholder="Password" class="form-control"/>
+					<br/>
+					<button id="login" class="btn btn-default">Login</button>
+					<br/>
+				</div>
+				<button id="profile" class="btn btn-default">Profile</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-    </script>
+	
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#get").click(function () {
+		getUser($('#user').val(), $('#alias').val())
+	});
+	$("#gotoins").click(function (){
+		$("#ins").css("display","inline");
+		$("#connect").css("display","none");
+	});
+	$("#gotoconnect").click(function (){
+		console.log("click on inscription");
+		$("#connect").css("display","inline");
+		$("#ins").css("display","none");
+	});
+	$("#post").click(function () {
+            postUser(
+            $('#user').val(),
+            $('#alias').val(),
+            $('#email').val(),
+            $('#passwd').val())});
+		$("#list").click(function () {
+		listUsers()
+	});
+	$("#login").click(function () {
+		login();
+	});
+	$("#profile").click(function () {
+		profile()
+	});
+});
+
+ </script>
 </body>
 </html>
