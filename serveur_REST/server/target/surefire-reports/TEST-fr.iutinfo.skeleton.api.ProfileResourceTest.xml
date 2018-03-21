@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fr.iutinfo.skeleton.api.ProfileResourceTest" time="1.02" tests="2" errors="0" skipped="0" failures="0">
+<testsuite name="fr.iutinfo.skeleton.api.ProfileResourceTest" time="0.977" tests="2" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-8-oracle-x64/jre/lib/amd64"/>
@@ -58,6 +58,42 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="should_return_forbiden_status_for_bad_user" classname="fr.iutinfo.skeleton.api.ProfileResourceTest" time="0.897"/>
-  <testcase name="should_return_forbiden_headers_without_authorization_header" classname="fr.iutinfo.skeleton.api.ProfileResourceTest" time="0.123"/>
+  <testcase name="should_return_forbiden_status_for_bad_user" classname="fr.iutinfo.skeleton.api.ProfileResourceTest" time="0.755">
+    <error message="Unable to execute, no named parameter matches &quot;email&quot; and no positional param for place 2 (which is 3 in the JDBC &apos;start at 1&apos; scheme) has been set. [statement:&quot;insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)&quot;, located:&quot;insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)&quot;, rewritten:&quot;insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)&quot;, arguments:{ positional:{}, named:{fname:&apos;null&apos;,lname:&apos;null&apos;,password:&apos;motdepasse&apos;,search:&apos;tclavier null&apos;,salt:&apos;graindesel&apos;,inUserGroup:true,name:&apos;tclavier&apos;,alias:&apos;null&apos;,anonymous:false,id:0,passwdHash:&apos;84edb3f1dcfbb6812672f56489433f374612054bed48890a54ab07a64dccaa6f&apos;,class:class fr.iutinfo.skeleton.api.User}, finder:[]}]" type="org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException"><![CDATA[org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'motdepasse',search:'tclavier null',salt:'graindesel',inUserGroup:true,name:'tclavier',alias:'null',anonymous:false,id:0,passwdHash:'84edb3f1dcfbb6812672f56489433f374612054bed48890a54ab07a64dccaa6f',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithPassword(Helper.java:42)
+	at fr.iutinfo.skeleton.api.ProfileResourceTest.should_return_forbiden_status_for_bad_user(ProfileResourceTest.java:40)
+]]></error>
+    <system-out><![CDATA[16:13:27,400 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+16:13:27,400 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+16:13:27,400 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [file:/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/target/classes/logback.xml]
+16:13:27,434 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+16:13:27,447 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+16:13:27,448 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+16:13:27,467 |-WARN in ch.qos.logback.core.ConsoleAppender[STDOUT] - This appender no longer admits a layout as a sub-component, set an encoder instead.
+16:13:27,467 |-WARN in ch.qos.logback.core.ConsoleAppender[STDOUT] - To ensure compatibility, wrapping your layout in LayoutWrappingEncoder.
+16:13:27,467 |-WARN in ch.qos.logback.core.ConsoleAppender[STDOUT] - See also http://logback.qos.ch/codes.html#layoutInsteadOfEncoder for details
+16:13:27,468 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to INFO
+16:13:27,468 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+16:13:27,468 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [fr.iutinfo.skeleton] to DEBUG
+16:13:27,468 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+16:13:27,469 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@1ca3b418 - Registering current configuration as safe fallback point
+
+16:13:27.638 [main] DEBUG fr.iutinfo.skeleton.api.BDDFactory - user.dir : /home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server
+16:13:27.639 [main] DEBUG fr.iutinfo.skeleton.api.BDDFactory - java.io.tmpdir : /tmp
+16:13:27.804 [main] DEBUG fr.iutinfo.skeleton.api.Helper - createUserWithPassword Hash : 84edb3f1dcfbb6812672f56489433f374612054bed48890a54ab07a64dccaa6f
+]]></system-out>
+    <system-err><![CDATA[mars 21, 2018 4:13:27 PM org.glassfish.jersey.test.simple.SimpleTestContainerFactory$SimpleTestContainer <init>
+INFOS: Creating SimpleTestContainer configured at the base URI http://localhost:9998/
+]]></system-err>
+  </testcase>
+  <testcase name="should_return_forbiden_headers_without_authorization_header" classname="fr.iutinfo.skeleton.api.ProfileResourceTest" time="0.222"/>
 </testsuite>
