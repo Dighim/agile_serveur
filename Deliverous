@@ -1,6 +1,6 @@
 java:
-  image: tclavier/jersey-skeleton
+  image: dighim/agile_serveur
   ports:
-  - ip: A.X.Y.Z
+  - ip: 5.135.124.212
     container_port: 8080
     host_port: 80
