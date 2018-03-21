@@ -1,6 +1,6 @@
 Projet site Taverne Oublié
 
-Devellopeurs:
+Développeurs:
 Antoine BLONDEAU @blondeaa
 Aymeric DE MASSARY @demassaa
 Brian MULIER @mulierb
