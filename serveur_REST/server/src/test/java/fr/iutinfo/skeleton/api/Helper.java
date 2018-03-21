@@ -42,7 +42,4 @@ public class Helper {
         user.setId(id);
         return user;
     }
-
-
-
 }
