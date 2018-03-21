@@ -1,4 +1,123 @@
 -------------------------------------------------------------------------------
 Test set: fr.iutinfo.skeleton.api.UserResourceTest
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.176 sec - in fr.iutinfo.skeleton.api.UserResourceTest
+Tests run: 14, Failures: 0, Errors: 13, Skipped: 0, Time elapsed: 1.507 sec <<< FAILURE! - in fr.iutinfo.skeleton.api.UserResourceTest
+list_should_search_in_alias_field(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.095 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getName() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.list_should_search_in_alias_field(UserResourceTest.java:129)
+
+after_delete_read_user_sould_return_204(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.089 sec  <<< ERROR!
+org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'null',search:'toto null',salt:'5770bdea299fde78dd39c03c2ecdfd7e3fa5e135afefb739eb903a06942b1fcf',inUserGroup:true,name:'toto',alias:'null',anonymous:false,id:0,passwdHash:'null',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithName(Helper.java:23)
+	at fr.iutinfo.skeleton.api.UserResourceTest.after_delete_read_user_sould_return_204(UserResourceTest.java:94)
+
+read_user_should_read_user_with_same_salt(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.087 sec  <<< ERROR!
+org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'motdepasse',search:'Mark Shuttleworth null',salt:'graindesel',inUserGroup:true,name:'Mark Shuttleworth',alias:'null',anonymous:false,id:0,passwdHash:'84edb3f1dcfbb6812672f56489433f374612054bed48890a54ab07a64dccaa6f',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithPassword(Helper.java:42)
+	at fr.iutinfo.skeleton.api.UserResourceTest.read_user_should_read_user_with_same_salt(UserResourceTest.java:56)
+
+should_delete_user(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.085 sec  <<< ERROR!
+org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'null',search:'toto null',salt:'605e084367cc241e32e4c4e9c3a49c21d50e69efa3e8934c224ccd1d6dda2a91',inUserGroup:true,name:'toto',alias:'null',anonymous:false,id:0,passwdHash:'null',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithName(Helper.java:23)
+	at fr.iutinfo.skeleton.api.UserResourceTest.should_delete_user(UserResourceTest.java:101)
+
+list_should_search_in_email_field(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.08 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method setEmail(String) is undefined for the type User
+
+	at fr.iutinfo.skeleton.api.Helper.createFullUSer(Helper.java:55)
+	at fr.iutinfo.skeleton.api.Helper.createRms(Helper.java:63)
+	at fr.iutinfo.skeleton.api.UserResourceTest.list_should_search_in_email_field(UserResourceTest.java:134)
+
+read_user_should_return_hashed_password(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.076 sec  <<< ERROR!
+org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'motdepasse',search:'Loïc Dachary null',salt:'grain de sable',inUserGroup:true,name:'Loïc Dachary',alias:'null',anonymous:false,id:0,passwdHash:'dfeb21109fe5eab1b1db7369844921c44b87b44669b0742f3f73bd166b474779',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithPassword(Helper.java:42)
+	at fr.iutinfo.skeleton.api.UserResourceTest.read_user_should_return_hashed_password(UserResourceTest.java:63)
+
+list_all_must_be_ordered(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.082 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getName() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.list_all_must_be_ordered(UserResourceTest.java:89)
+
+create_should_return_the_user_with_valid_id(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.395 sec  <<< ERROR!
+java.lang.StringIndexOutOfBoundsException: String index out of range: 23
+	at java.lang.String.substring(String.java:1963)
+	at fr.iutinfo.skeleton.api.UserResourceTest.create_should_return_the_user_with_valid_id(UserResourceTest.java:73)
+
+read_should_return_a_user_as_object(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.079 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getName() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.read_should_return_a_user_as_object(UserResourceTest.java:36)
+
+list_should_search_in_name_field(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.081 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getName() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.list_should_search_in_name_field(UserResourceTest.java:119)
+
+list_should_return_all_users(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.079 sec  <<< ERROR!
+org.skife.jdbi.v2.exceptions.UnableToExecuteStatementException: Unable to execute, no named parameter matches "email" and no positional param for place 2 (which is 3 in the JDBC 'start at 1' scheme) has been set. [statement:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", located:"insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)", rewritten:"insert into users (name,alias,email, passwdHash, salt, search) values (?, ?, ?, ?, ?, ?)", arguments:{ positional:{}, named:{fname:'null',lname:'null',password:'null',search:'foo null',salt:'9443e49f8748cbea0d33346b7add7287a260714b1c9188403e707222cd063fc1',inUserGroup:true,name:'foo',alias:'null',anonymous:false,id:0,passwdHash:'null',class:class fr.iutinfo.skeleton.api.User}, finder:[]}]
+	at org.skife.jdbi.v2.ColonPrefixNamedParamStatementRewriter$MyRewrittenStatement.bind(ColonPrefixNamedParamStatementRewriter.java:156)
+	at org.skife.jdbi.v2.SQLStatement.internalExecute(SQLStatement.java:1318)
+	at org.skife.jdbi.v2.Update.executeAndReturnGeneratedKeys(Update.java:77)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler$1.value(UpdateHandler.java:50)
+	at org.skife.jdbi.v2.sqlobject.UpdateHandler.invoke(UpdateHandler.java:72)
+	at org.skife.jdbi.v2.sqlobject.SqlObject.invoke(SqlObject.java:175)
+	at org.skife.jdbi.v2.sqlobject.SqlObject$1.intercept(SqlObject.java:75)
+	at org.skife.jdbi.v2.sqlobject.CloseInternalDoNotUseThisClass$$EnhancerByCGLIB$$c69fac30.insert(<generated>)
+	at fr.iutinfo.skeleton.api.Helper.createUser(Helper.java:46)
+	at fr.iutinfo.skeleton.api.Helper.createUserWithName(Helper.java:23)
+	at fr.iutinfo.skeleton.api.UserResourceTest.list_should_return_all_users(UserResourceTest.java:78)
+
+read_user_should_return_good_alias(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.074 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getAlias() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.read_user_should_return_good_alias(UserResourceTest.java:43)
+
+read_user_should_return_good_email(fr.iutinfo.skeleton.api.UserResourceTest)  Time elapsed: 0.084 sec  <<< ERROR!
+java.lang.Error: Unresolved compilation problem: 
+	The method getEmail() is undefined for the type UserDto
+
+	at fr.iutinfo.skeleton.api.UserResourceTest.read_user_should_return_good_email(UserResourceTest.java:50)
+
