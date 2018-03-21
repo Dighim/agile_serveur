@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.339" tests="3" errors="0" skipped="0" failures="0">
+<testsuite name="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.291" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-8-oracle-x64/jre/lib/amd64"/>
     <property name="java.vm.version" value="25.71-b15"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/tmp/jersey-skeleton"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/infoetu/mulierb/ProjetAgileS4/agile_serveur/serveur_REST"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/tmp/jersey-skeleton"/>
+    <property name="user.dir" value="/home/infoetu/mulierb/ProjetAgileS4/agile_serveur/serveur_REST"/>
     <property name="java.runtime.version" value="1.8.0_71-b15"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/jdk-8-oracle-x64/jre/lib/endorsed"/>
@@ -31,12 +31,12 @@
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="4.9.0-5-amd64"/>
-    <property name="user.home" value="/home/infoetu/depommit"/>
+    <property name="user.home" value="/home/infoetu/mulierb"/>
     <property name="user.timezone" value="Europe/Paris"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.8"/>
-    <property name="user.name" value="depommit"/>
+    <property name="user.name" value="mulierb"/>
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
@@ -58,7 +58,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="should_return_current_user_with_authorization_header" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.126"/>
-  <testcase name="should_return_anonymous_user_without_authorization_header" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.101"/>
-  <testcase name="should_return_anonymous_user_for_bad_user" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.112"/>
+  <testcase name="should_return_current_user_with_authorization_header" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.102"/>
+  <testcase name="should_return_anonymous_user_without_authorization_header" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.081"/>
+  <testcase name="should_return_anonymous_user_for_bad_user" classname="fr.iutinfo.skeleton.api.LoginResourceTest" time="0.108"/>
 </testsuite>
