@@ -15,10 +15,6 @@ function login() {
 	});
 }
 
-function profile() {
-	getWithAuthorizationHeader("v1/profile", function (data) {afficheUser(data);});
-}
-
  function getWithAuthorizationHeader(url, callback) {
  if($("#userlogin").val() != "") {
      $.ajax
@@ -45,7 +41,7 @@ function postUser(name, alias, email, pwd) {
     postUserGeneric(name, alias, email, pwd, 'v1/user/')
 }
 
-function postUserGeneric(name, alias, email, pwd, url) {
+function postUserGeneric(user, lname, fname, pwd, url) {
 	console.log("postUserGeneric " + url)
 	$.ajax({
 		type : 'POST',
@@ -53,9 +49,9 @@ function postUserGeneric(name, alias, email, pwd, url) {
 		url : url,
 		dataType : "json",
 		data : JSON.stringify({
-			"name" : name,
-			"alias" : alias,
-			"email" : email,
+			"user" : user,
+			"lname" : lname,
+			"fname" : fname,
 			"password" : pwd,
 			"id" : 0
 		}),
@@ -97,5 +93,5 @@ function afficheListUsers(data) {
 }
 
 function userStringify(user) {
-    return user.id + ". " + user.name + " &lt;" + user.email + "&gt;" + " (" + user.alias + ")";
+    return user.id + ". " + user.fname + " &lt;" + user.lname + "&gt;" + " (" + user.user + ")";
 }
