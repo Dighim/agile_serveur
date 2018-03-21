@@ -6,7 +6,7 @@ run apt-get update \
     && apt-get clean
 #run mvn install
 run rm -rf /var/lib/jetty9/webapps/root
-add . /srv/jersey-skeleton/
+add serveur_REST /srv/jersey-skeleton/
 workdir /srv/jersey-skeleton/
 run mvn install
 run cp /srv/jersey-skeleton/war/target/war-1.0-SNAPSHOT.war /var/lib/jetty9/webapps/root.war
