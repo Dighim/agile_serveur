@@ -1,5 +1,5 @@
-/tmp/jersey-skeleton/server/src/test/java/fr/iutinfo/skeleton/api/ProfileResourceTest.java
-/tmp/jersey-skeleton/server/src/test/java/fr/iutinfo/skeleton/api/Helper.java
-/tmp/jersey-skeleton/server/src/test/java/fr/iutinfo/skeleton/api/LoginResourceTest.java
-/tmp/jersey-skeleton/server/src/test/java/fr/iutinfo/skeleton/api/UserResourceTest.java
-/tmp/jersey-skeleton/server/src/test/java/fr/iutinfo/skeleton/api/UserTest.java
+/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/src/test/java/fr/iutinfo/skeleton/api/UserResourceTest.java
+/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/src/test/java/fr/iutinfo/skeleton/api/ProfileResourceTest.java
+/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/src/test/java/fr/iutinfo/skeleton/api/Helper.java
+/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/src/test/java/fr/iutinfo/skeleton/api/LoginResourceTest.java
+/home/infoetu/depommit/projet-agile/agile_serveur/serveur_REST/server/src/test/java/fr/iutinfo/skeleton/api/UserTest.java
