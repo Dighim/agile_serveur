@@ -75,7 +75,8 @@ function postUserGeneric(user, pseudo, pwd, url) {
 			"id" : 0
 		}),
 		success : function(data, textStatus, jqXHR) {
-			afficheUser(data);
+            $("#ins").hide();
+			$("#connect").show();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#reponse").text("L'utilisateur "+user+ " existe déjà.");

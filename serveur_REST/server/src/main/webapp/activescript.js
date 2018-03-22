@@ -16,7 +16,7 @@ $(document).ready(function() {
             $('#user').val(),
             $('#pseudo').val(),
             $('#passwd').val())});
-    listUsers();
+    //listUsers();
 });
 $("#connectbutton").click(function () {
     login();
