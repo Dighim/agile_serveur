@@ -74,7 +74,7 @@ function postUserGeneric(user, pseudo, pwd, url) {
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			console.log('postUser error: ' + textStatus);
+			$("#reponse").text("L'utilisateur "+user+ " existe déjà.");
 		}
 	});
 }
