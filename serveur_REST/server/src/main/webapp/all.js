@@ -21,7 +21,7 @@ function login() {
 		$("#gotoprof").off("click");
 		$("#gotoprof").click(function (){
             if(!desc) {
-                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User:<span>'+user+'</span></div></div>').appendTo($("body"));
+                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: <span>'+user+'</span></div></div>').appendTo($("body"));
                 desc = true;
             }
 		});
