@@ -17,7 +17,7 @@ function login() {
 		document.getElementById('gotoconnect').id = 'exit';
 		$("#gotoprof").off("click");
 		$("#gotoprof").click(function (){
-			$('<div id="profil"><p>Ceci est mon profil</p></div>').appendTo($("body"));
+			$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info"><ol><li>User:***</li><li>Pseudo:***</li></ol></div></div>').appendTo($("body"));
 		});
 		$("#exit").off("click");
 		$("#exit").click(function() {

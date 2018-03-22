@@ -13,3 +13,9 @@ nav{
 	display: block;
 	text-align: center;
 }
+#description{
+    position: center;
+}
+#info{
+    text-align: right;
+}  
