@@ -13,10 +13,10 @@ import java.security.SecureRandom;
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
     private static User anonymous = new User(-1, "Anonymous", "anonym");
-    private String name;
-    private String alias;
+    private String user;
+    private String fname;
+    private String lname;
     private int id = 0;
-    private String email;
     private String password;
     private String passwdHash;
     private String salt;
@@ -24,28 +24,38 @@ public class User implements Principal {
 
     public User(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.user = name;
     }
 
     public User(int id, String name, String alias) {
         this.id = id;
-        this.name = name;
-        this.alias = alias;
+        this.user = name;
+        this.fname = alias;
     }
 
     public User() {
     }
 
+    
+    
     public static User getAnonymousUser() {
         return anonymous;
     }
-
-    public String getEmail() {
-        return email;
+   
+    public String getlname() {
+    	return this.lname;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    
+    public void setlname(String lname) {
+    	this.lname = lname;
+    }
+    
+    public String getfname() {
+    	return this.fname;
+    }
+    
+    public void setfname(String fname) {
+    	this.fname = fname;
     }
 
     public int getId() {
@@ -57,11 +67,11 @@ public class User implements Principal {
     }
 
     public String getName() {
-        return name;
+        return user;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.user = name;
     }
 
     public String getPassword() {
@@ -100,16 +110,15 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return name.equals(user.name) && alias.equals(user.alias) && email.equals(user.email) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return user.equals(user.user) && fname.equals(user.fname) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((alias == null) ? 0 : alias.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((fname == null) ? 0 : fname.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
         result = prime * result + ((passwdHash == null) ? 0 : passwdHash.hashCode());
         result = prime * result + ((salt == null) ? 0 : salt.hashCode());
         return result;
@@ -117,15 +126,15 @@ public class User implements Principal {
     
     @Override
     public String toString() {
-        return id + ": " + alias + ", " + name + " <" + email + ">";
+        return id + ": " + fname + ", " + user;
     }
 
     public String getAlias() {
-        return alias;
+        return fname;
     }
 
     public void setAlias(String alias) {
-        this.alias = alias;
+        this.fname = alias;
     }
 
     public String getSalt() {
@@ -161,7 +170,7 @@ public class User implements Principal {
     }
 
     public String getSearch() {
-        search = name + " " + alias + " " + email;
+        search = user + " " + fname;
         return search;
     }
 
@@ -170,19 +179,17 @@ public class User implements Principal {
     }
 
     public void initFromDto(UserDto dto) {
-        this.setAlias(dto.getAlias());
-        this.setEmail(dto.getEmail());
         this.setId(dto.getId());
-        this.setName(dto.getName());
+        this.setfname(dto.getfname());
+        this.setlname(dto.getlname());
         this.setPassword(dto.getPassword());
     }
 
     public UserDto convertToDto() {
         UserDto dto = new UserDto();
-        dto.setAlias(this.getAlias());
-        dto.setEmail(this.getEmail());
+        dto.setlname(this.lname);
+        dto.setfname(this.fname);
         dto.setId(this.getId());
-        dto.setName(this.getName());
         dto.setPassword(this.getPassword());
         return dto;
     }
