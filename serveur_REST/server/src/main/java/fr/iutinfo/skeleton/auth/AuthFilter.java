@@ -36,6 +36,7 @@ public class AuthFilter implements ContainerRequestFilter {
                 logger.debug("good password !");
                 containerRequest.setSecurityContext(new AppSecurityContext(user, scheme));
             } else {
+            	logger.debug("Error psswd");
                 containerRequest.setSecurityContext(new AppSecurityContext(User.getAnonymousUser(), scheme));
             }
         } else {
@@ -46,7 +47,7 @@ public class AuthFilter implements ContainerRequestFilter {
     private User loadUserFromLogin(String login) {
         UserDao dao = BDDFactory.getDbi().open(UserDao.class);
         User user = dao.findByName(login);
-        if (user == null) {
+       if (user == null) {
             user = User.getAnonymousUser();
         }
         return user;

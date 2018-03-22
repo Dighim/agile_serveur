@@ -81,14 +81,25 @@ public class User implements Principal {
 		this.passwdHash = passwdHash;
 	}
 
-	public String getSalt() {
-		return salt;
-	}
+	 public String getSalt() {
+	        if (salt == null) {
+	            salt = generateSalt();
+	        }
+	        return salt;
+	 }
 
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
 
+	   private String generateSalt() {
+	        SecureRandom random = new SecureRandom();
+	        Hasher hasher = Hashing.sha256().newHasher();
+	        hasher.putLong(random.nextLong());
+	        return hasher.hash().toString();
+	    }
+
+	
 	private String buildHash(String password, String s) {
         Hasher hasher = Hashing.sha256().newHasher();
         hasher.putString(password + s, Charsets.UTF_8);
@@ -99,7 +110,10 @@ public class User implements Principal {
         if (isAnonymous()) {
             return false;
         }
+        logger.debug("salt: "+getSalt());
+        logger.debug("passwd: "+password);
         String hash = buildHash(password, getSalt());
+        logger.debug("hash:"+hash + "   " +getPassword());
         return hash.equals(getPasswdHash());
     }
 
@@ -127,18 +141,9 @@ public class User implements Principal {
         return id + ": " + pseudo + ", " + user;
     }
 
-  
-
-    private String generateSalt() {
-        SecureRandom random = new SecureRandom();
-        Hasher hasher = Hashing.sha256().newHasher();
-        hasher.putLong(random.nextLong());
-        return hasher.hash().toString();
-    }
-
     public void resetPasswordHash() {
         if (password != null && !password.isEmpty()) {
-            setPassword(getPassword());
+            setPasswdHash(buildHash(getPassword(), getSalt()));
         }
     }
 
