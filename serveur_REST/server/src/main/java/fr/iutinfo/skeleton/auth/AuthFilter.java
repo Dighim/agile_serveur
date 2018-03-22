@@ -38,6 +38,7 @@ public class AuthFilter implements ContainerRequestFilter {
             } else {
             	logger.debug("Error psswd");
                 containerRequest.setSecurityContext(new AppSecurityContext(User.getAnonymousUser(), scheme));
+            	 throw new WebApplicationException(Status.NOT_ACCEPTABLE);
             }
         } else {
             containerRequest.setSecurityContext(new AppSecurityContext(User.getAnonymousUser(), scheme));

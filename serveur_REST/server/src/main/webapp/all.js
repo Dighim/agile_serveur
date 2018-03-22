@@ -43,7 +43,7 @@ function login() {
        },
        success: callback,
        error : function(jqXHR, textStatus, errorThrown) {
-       			alert('error: ' + textStatus);
+       			$("#connect").append("<p>Mauvais Utilisateur / Mot de passe</p>");
        		}
      });
      } else {
