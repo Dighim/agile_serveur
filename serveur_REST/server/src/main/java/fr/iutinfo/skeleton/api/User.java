@@ -152,6 +152,7 @@ public class User implements Principal {
 
 
     public void initFromDto(UserDto dto) {
+    	this.setUser(dto.getUser());
         this.setId(dto.getId());
         this.setPseudo(dto.getPseudo());
         this.setPassword(dto.getPassword());
