@@ -9,25 +9,43 @@ import fr.iutinfo.skeleton.common.dto.UserDto;
 
 public class Table {
 	final static Logger logger = LoggerFactory.getLogger(Table.class);
+	private String nomTable;
 	private int idTable;
 	private String intitule;
 	private boolean publique;
-	private int durée;
+	private int duree;
 	private String lieu;
 	private LocalDate date;
 	private int nbPers;
 	
-	public Table(int idTable, String intitule, boolean publique, int durée, String lieu, LocalDate date, int nbPers) {
+	public Table(String nomTable,int idTable, String intitule, boolean publique, int duree, String lieu, LocalDate date, int nbPers) {
 		super();
+		this.nomTable=nomTable;
 		this.idTable = idTable;
 		this.intitule = intitule;
 		this.publique = publique;
-		this.durée = durée;
+		this.duree = duree;
 		this.lieu = lieu;
 		this.date = date;
 		this.nbPers = nbPers;
 	}
 	
+	public String getNomTable() {
+		return nomTable;
+	}
+
+	public void setNomTable(String nomTable) {
+		this.nomTable = nomTable;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
+
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
+
 	public int getIdTable() {
 		return idTable;
 	}
@@ -46,11 +64,11 @@ public class Table {
 	public void setPublique(boolean publique) {
 		this.publique = publique;
 	}
-	public int getDurée() {
-		return durée;
+	public int getduree() {
+		return duree;
 	}
-	public void setDurée(int durée) {
-		this.durée = durée;
+	public void setduree(int duree) {
+		this.duree = duree;
 	}
 	public String getLieu() {
 		return lieu;
