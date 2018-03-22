@@ -1,4 +1,5 @@
 var desc = false;
+var user;
 function getUser(name) {
 	getUserGeneric(name, "v1/user/");
 }
@@ -12,6 +13,7 @@ function getUserGeneric(name, url) {
 function login() {
 	getWithAuthorizationHeader("v1/login", function(data){
 	    $("#connect").hide();
+		$("table").show();
 		document.getElementById('gotoins').innerHTML = "Profil";
 		document.getElementById('gotoconnect').innerHTML = "Déconnexion";
 		document.getElementById('gotoins').id = 'gotoprof';
@@ -19,16 +21,12 @@ function login() {
 		$("#gotoprof").off("click");
 		$("#gotoprof").click(function (){
             if(!desc) {
-                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info"><ol><li>User:***</li><li>Pseudo:***</li></ol></div></div>').appendTo($("body"));
+                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User:<span>'+user+'</span></div></div>').appendTo($("body"));
                 desc = true;
             }
 		});
 		$("#exit").off("click");
 		$("#exit").click(function() {
-	/*	document.getElementById('gotoprof').innerHTML = "S'inscrire";
-		document.getElementById('exit').innerHTML = "Se connecter";
-		document.getElementById('gotoprof').id = 'gotoins';
-		document.getElementById('exit').id = 'gotoconnect';*/
 			document.location.href="/";
 	});
 	    afficheUser(data);
@@ -44,6 +42,7 @@ function login() {
        dataType: 'json',
        beforeSend : function(req) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+		   user = $("#userlogin").val();
        },
        success: callback,
        error : function(jqXHR, textStatus, errorThrown) {
