@@ -20,17 +20,16 @@ public class User implements Principal {
     private String password;
     private String passwdHash;
     private String salt;
-    private String search;
 
     public User(int id, String name) {
         this.id = id;
         this.user = name;
     }
 
-    public User(int id, String name, String alias) {
+    public User(int id, String user, String fname) {
         this.id = id;
-        this.user = name;
-        this.fname = alias;
+        this.user = user;
+        this.fname = fname;
     }
 
     public User() {
@@ -41,49 +40,65 @@ public class User implements Principal {
     public static User getAnonymousUser() {
         return anonymous;
     }
-   
-    public String getlname() {
-    	return this.lname;
-    }
-    
-    public void setlname(String lname) {
-    	this.lname = lname;
-    }
-    
-    public String getfname() {
-    	return this.fname;
-    }
-    
-    public void setfname(String fname) {
-    	this.fname = fname;
-    }
+ 
 
-    public int getId() {
-        return id;
-    }
+    public String getUser() {
+		return user;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setUser(String user) {
+		this.user = user;
+	}
 
-    public String getName() {
-        return user;
-    }
+	public String getFname() {
+		return fname;
+	}
 
-    public void setName(String name) {
-        this.user = name;
-    }
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
 
-    public String getPassword() {
-        return this.password;
-    }
+	public String getLname() {
+		return lname;
+	}
 
-    public void setPassword(String password) {
-        passwdHash = buildHash(password, getSalt());
-        this.password = password;
-    }
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
 
-    private String buildHash(String password, String s) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswdHash() {
+		return passwdHash;
+	}
+
+	public void setPasswdHash(String passwdHash) {
+		this.passwdHash = passwdHash;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	private String buildHash(String password, String s) {
         Hasher hasher = Hashing.sha256().newHasher();
         hasher.putString(password + s, Charsets.UTF_8);
         return hasher.hash().toString();
@@ -95,14 +110,6 @@ public class User implements Principal {
         }
         String hash = buildHash(password, getSalt());
         return hash.equals(getPasswdHash());
-    }
-
-    public String getPasswdHash() {
-        return passwdHash;
-    }
-
-    public void setPasswdHash(String passwdHash) {
-        this.passwdHash = passwdHash;
     }
 
     @Override
@@ -129,24 +136,7 @@ public class User implements Principal {
         return id + ": " + fname + ", " + user;
     }
 
-    public String getAlias() {
-        return fname;
-    }
-
-    public void setAlias(String alias) {
-        this.fname = alias;
-    }
-
-    public String getSalt() {
-        if (salt == null) {
-            salt = generateSalt();
-        }
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+  
 
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -169,19 +159,11 @@ public class User implements Principal {
         return this.getId() == getAnonymousUser().getId();
     }
 
-    public String getSearch() {
-        search = user + " " + fname;
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
 
     public void initFromDto(UserDto dto) {
         this.setId(dto.getId());
-        this.setfname(dto.getfname());
-        this.setlname(dto.getlname());
+        this.setFname(dto.getfname());
+        this.setLname(dto.getlname());
         this.setPassword(dto.getPassword());
     }
 
@@ -193,4 +175,10 @@ public class User implements Principal {
         dto.setPassword(this.getPassword());
         return dto;
     }
+
+	@Override
+	public String getName() {
+		
+		return "User";
+	}
 }

@@ -13,7 +13,7 @@ import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static org.junit.Assert.assertEquals;
 
 public class ProfileResourceTest extends JerseyTest {
-    private Helper h;
+    /*private Helper h;
     private String path = "/profile";
 
     @Override
@@ -41,5 +41,5 @@ public class ProfileResourceTest extends JerseyTest {
         String authorization = "Basic " + Base64.encodeAsString("tclavier:pasdemotdepasse");
         int status = target(path).request().header(AUTHORIZATION, authorization).get().getStatus();
         assertEquals(FORBIDDEN.getStatusCode(), status);
-    }
+    }*/
 }
