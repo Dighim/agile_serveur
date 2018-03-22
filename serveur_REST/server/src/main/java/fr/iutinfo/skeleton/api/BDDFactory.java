@@ -19,6 +19,7 @@ public class BDDFactory {
         if(dbi == null) {
             SQLiteDataSource ds = new SQLiteDataSource();
             ds.setUrl("jdbc:sqlite:" + System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "data.db");
+            System.out.println("jdbc:sqlite:" + System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "data.db");
             dbi = new DBI(ds);
             logger.debug("user.dir : " + System.getProperty("user.dir"));
             logger.debug("java.io.tmpdir : " + System.getProperty("java.io.tmpdir"));

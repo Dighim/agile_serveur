@@ -14,8 +14,7 @@ public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
     private static User anonymous = new User(-1, "Anonymous", "anonym");
     private String user;
-    private String fname;
-    private String lname;
+    private String pseudo;
     private int id = 0;
     private String password;
     private String passwdHash;
@@ -26,10 +25,10 @@ public class User implements Principal {
         this.user = name;
     }
 
-    public User(int id, String user, String fname) {
+    public User(int id, String user, String pseudo) {
         this.id = id;
         this.user = user;
-        this.fname = fname;
+        this.pseudo = pseudo;
     }
 
     public User() {
@@ -50,20 +49,12 @@ public class User implements Principal {
 		this.user = user;
 	}
 
-	public String getFname() {
-		return fname;
+	public String getPseudo() {
+		return pseudo;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-
-	public String getLname() {
-		return lname;
-	}
-
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
 
 	public int getId() {
@@ -117,14 +108,14 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return user.equals(user.user) && fname.equals(user.fname) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return user.equals(user.user) && pseudo.equals(user.pseudo) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((fname == null) ? 0 : fname.hashCode());
+        result = prime * result + ((pseudo == null) ? 0 : pseudo.hashCode());
         result = prime * result + ((user == null) ? 0 : user.hashCode());
         result = prime * result + ((passwdHash == null) ? 0 : passwdHash.hashCode());
         result = prime * result + ((salt == null) ? 0 : salt.hashCode());
@@ -133,7 +124,7 @@ public class User implements Principal {
     
     @Override
     public String toString() {
-        return id + ": " + fname + ", " + user;
+        return id + ": " + pseudo + ", " + user;
     }
 
   
@@ -162,15 +153,13 @@ public class User implements Principal {
 
     public void initFromDto(UserDto dto) {
         this.setId(dto.getId());
-        this.setFname(dto.getfname());
-        this.setLname(dto.getlname());
+        this.setPseudo(dto.getPseudo());
         this.setPassword(dto.getPassword());
     }
 
     public UserDto convertToDto() {
         UserDto dto = new UserDto();
-        dto.setlname(this.lname);
-        dto.setfname(this.fname);
+        dto.setPseudo(this.pseudo);
         dto.setId(this.getId());
         dto.setPassword(this.getPassword());
         return dto;

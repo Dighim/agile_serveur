@@ -6,8 +6,7 @@ import org.slf4j.LoggerFactory;
 public class UserDto {
     final static Logger logger = LoggerFactory.getLogger(UserDto.class);
     private String user;
-    private String fname;
-	private String lname;
+    private String pseudo;
     private int id = 0;
     private String password;
 
@@ -27,22 +26,14 @@ public class UserDto {
 		this.user = user;
 	}
 
-	public String getfname() {
-        return fname;
+	public String getPseudo() {
+        return pseudo;
     }
 
-    public void setfname(String fname) {
-        this.fname = fname;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
-
-    public String getlname() {
-        return lname;
-    }
-
-    public void setlname(String lname) {
-        this.lname = lname;
-    }
     public String getPassword() {
         return this.password;
     }

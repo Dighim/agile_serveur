@@ -14,8 +14,7 @@ $(document).ready(function() {
     $("#insbutton").click(function () {
         postUser(
             $('#user').val(),
-            $('#lname').val(),
-            $('#fname').val(),
+            $('#pseudo').val(),
             $('#passwd').val())});
     listUsers()
 });
