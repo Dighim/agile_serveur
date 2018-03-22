@@ -10,7 +10,23 @@ function getUserGeneric(name, url) {
 
 function login() {
 	getWithAuthorizationHeader("v1/login", function(data){
-	    $("#login_form").hide();
+	    $("#connect").hide();
+		document.getElementById('gotoins').innerHTML = "Profil";
+		document.getElementById('gotoconnect').innerHTML = "Déconnexion";
+		document.getElementById('gotoins').id = 'gotoprof';
+		document.getElementById('gotoconnect').id = 'exit';
+		$("#gotoprof").off("click");
+		$("#gotoprof").click(function (){
+			$('<div id="profil"><p>Ceci est mon profil</p></div>').appendTo($("body"));
+		});
+		$("#exit").off("click");
+		$("#exit").click(function() {
+	/*	document.getElementById('gotoprof').innerHTML = "S'inscrire";
+		document.getElementById('exit').innerHTML = "Se connecter";
+		document.getElementById('gotoprof').id = 'gotoins';
+		document.getElementById('exit').id = 'gotoconnect';*/
+			document.location.href="/";
+	});
 	    afficheUser(data);
 	});
 }

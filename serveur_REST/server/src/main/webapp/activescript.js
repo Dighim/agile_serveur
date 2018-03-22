@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#get").click(function () {
-        getUser($('#user').val(), $('#alias').val())
+        getUser($('#user').val(), $('#alias').val());
     });
     $("#gotoins").click(function (){
         $("body>div").hide();
@@ -16,7 +16,7 @@ $(document).ready(function() {
             $('#user').val(),
             $('#pseudo').val(),
             $('#passwd').val())});
-    listUsers()
+    listUsers();
 });
 $("#connectbutton").click(function () {
     login();
