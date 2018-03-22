@@ -48,8 +48,7 @@
             <div class="form-group">
                 <h1>S'inscrire :</h1>
 			<input type="text" name="user" id="user" placeholder="Nom utilisateur" class="form-control"/>
-			<input type="text" name="lastname" id="lname" placeholder="Nom" class="form-control"/>
-			<input type="text" name="firstname" id="fname" placeholder="Prénom" class="form-control"/>
+			<input type="text" name="pseudo" id="pseudo" placeholder="Pseudo" class="form-control"/>
                 	<input type="password" name="user" id="passwd" placeholder="Mot de passe" class="form-control"/>
             </div>
 		  <button id="insbutton" class="btn btn-default">Inscription</button>
@@ -97,8 +96,7 @@
 	$("#insbutton").click(function () {
 		postUser(
 			 	$('#user').val(),
-                $('#lname').val(),
-                $('#fname').val(),
+                $('#pseudo').val(),
                 $('#passwd').val())});
 		listUsers()
 	});

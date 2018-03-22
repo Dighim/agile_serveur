@@ -37,11 +37,11 @@ function login() {
      }
  }
 
-function postUser(user, lname, fname, pwd) {
-    postUserGeneric(user, lname, fname, pwd, 'v1/user/')
+function postUser(user, pseudo, pwd) {
+    postUserGeneric(user, pseudo, pwd, 'v1/user/')
 }
 
-function postUserGeneric(user, lname, fname, pwd, url) {
+function postUserGeneric(user, pseudo, pwd, url) {
 	console.log("postUserGeneric " + url)
 	$.ajax({
 		type : 'POST',
@@ -50,8 +50,7 @@ function postUserGeneric(user, lname, fname, pwd, url) {
 		dataType : "json",
 		data : JSON.stringify({
 			"user" : user,
-			"lname" : lname,
-			"fname" : fname,
+			"pseudo" : pseudo,
 			"password" : pwd,
 			"id" : 0
 		}),
@@ -93,5 +92,5 @@ function afficheListUsers(data) {
 }
 
 function userStringify(user) {
-    return user.id + ". " + user.fname + " &lt;" + user.lname + "&gt;" + " (" + user.user + ")";
+    return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
 }
