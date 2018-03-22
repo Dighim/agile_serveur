@@ -37,8 +37,8 @@ function login() {
      }
  }
 
-function postUser(name, alias, email, pwd) {
-    postUserGeneric(name, alias, email, pwd, 'v1/user/')
+function postUser(user, lname, fname, pwd) {
+    postUserGeneric(user, lname, fname, pwd, 'v1/user/')
 }
 
 function postUserGeneric(user, lname, fname, pwd, url) {
