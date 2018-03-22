@@ -5,7 +5,7 @@ run apt-get update \
     && apt-get install -y openjdk-8-jdk \
     && apt-get clean
 run apt-get update \
-    && apt-get install -y maven jetty9 \
+    && apt-get install -y maven jetty9 sqlite3 \
     && apt-get clean
 #run mvn install
 run rm -rf /var/lib/jetty9/webapps/root
