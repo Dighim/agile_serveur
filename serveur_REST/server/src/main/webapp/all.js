@@ -1,3 +1,4 @@
+var desc = false;
 function getUser(name) {
 	getUserGeneric(name, "v1/user/");
 }
@@ -17,7 +18,10 @@ function login() {
 		document.getElementById('gotoconnect').id = 'exit';
 		$("#gotoprof").off("click");
 		$("#gotoprof").click(function (){
-			$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info"><ol><li>User:***</li><li>Pseudo:***</li></ol></div></div>').appendTo($("body"));
+            if(!desc) {
+                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info"><ol><li>User:***</li><li>Pseudo:***</li></ol></div></div>').appendTo($("body"));
+                desc = true;
+            }
 		});
 		$("#exit").off("click");
 		$("#exit").click(function() {
@@ -43,7 +47,7 @@ function login() {
        },
        success: callback,
        error : function(jqXHR, textStatus, errorThrown) {
-       			$("#connect").append("<p>Mauvais Utilisateur / Mot de passe</p>");
+       			$("#connect p").show();
        		}
      });
      } else {
