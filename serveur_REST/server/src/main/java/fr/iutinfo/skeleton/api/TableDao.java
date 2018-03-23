@@ -11,10 +11,10 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface TableDao {
-	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),date LocalDate,nbPers integer)")
+	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),nbPers integer)")
     void createBaseTable();
 	
-	@SqlUpdate("insert into tables (intitule,publique,duree, lieu,date,nbPers) values (:intitule, :publique, :duree, :lieu, :date, :nbPers)")
+	@SqlUpdate("insert into tables (intitule,publique,duree, lieu,nbPers) values (:intitule, :publique, :duree, :lieu, :nbPers)")
     @GetGeneratedKeys
     int insert(@BindBean() Table table);
 	

@@ -16,10 +16,10 @@ public class Table implements Principal{
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	private LocalDate date;
+	//private LocalDate date;
 	private int nbPers;
 	
-	public Table(int idTable, String intitule, boolean publique, double duree, String lieu, LocalDate date, int nbPers) {
+	/*public Table(int idTable, String intitule, boolean publique, double duree, String lieu, int nbPers) {
 		super();
 		
 		this.idTable = idTable;
@@ -27,9 +27,9 @@ public class Table implements Principal{
 		this.publique = publique;
 		this.duree = duree;
 		this.lieu = lieu;
-		this.date = date;
+		//this.date = date;
 		this.nbPers = nbPers;
-	}
+	}*/
 	
 	public Table() {
     }
@@ -40,7 +40,7 @@ public class Table implements Principal{
         this.setPublique(dto.isPublique());
         this.setDuree(dto.getDuree());
         this.setLieu(dto.getLieu());
-        this.setDate(dto.getDate());
+     //   this.setDate(dto.getDate());
         this.setNbPers(dto.getNbPers());
     }
 	
@@ -76,12 +76,12 @@ public class Table implements Principal{
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-	public LocalDate getDate() {
+	/*public LocalDate getDate() {
 		return date;
 	}
 	public void setDate(LocalDate date) {
 		this.date = date;
-	}
+	}*/
 	public int getNbPers() {
 		return nbPers;
 	}
@@ -96,7 +96,7 @@ public class Table implements Principal{
 		dto.setPublique(this.isPublique());
 		dto.setDuree(this.getDuree());
 		dto.setLieu(this.getLieu());
-		dto.setDate(this.getDate());
+		//dto.setDate(this.getDate());
 		dto.setNbPers(this.getNbPers());
         return dto;
     }

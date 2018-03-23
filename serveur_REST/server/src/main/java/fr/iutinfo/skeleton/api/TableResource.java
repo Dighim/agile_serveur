@@ -38,7 +38,14 @@ public class TableResource {
 		if (!tableExist("tables")) {
 			logger.debug("Create table table de jeux");
 			dao.createBaseTable();
-			dao.insert(new Table(0, "solitaire",false, 0.5, "chez moi", LocalDate.now(),1)); 
+			Table t= new Table();
+			t.setDuree(1);
+			t.setIdTable(0);
+			t.setIntitule("solitaire");
+			t.setLieu("ici");
+			t.setNbPers(1);
+			t.setPublique(false);
+			dao.insert(t); 
 		}
 	}
     
