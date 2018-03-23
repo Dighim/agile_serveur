@@ -6,12 +6,13 @@ function getUser(name) {
 
 function getUserGeneric(name, url) {
 	$.getJSON(url + name, function(data) {
-		afficheUser(data);
+		//afficheUser(data);
 	});
 }
 
 function login() {
 	getWithAuthorizationHeader("v1/login", function(data){
+        $("#reponse").text("");
 	    $("#connect").hide();
 		$("table").show();
 		document.getElementById('gotoins').innerHTML = "Profil";
@@ -29,7 +30,7 @@ function login() {
 		$("#exit").click(function() {
 			document.location.href="/";
 	});
-	    afficheUser(data);
+	    //afficheUser(data);
 	});
 }
 
@@ -47,12 +48,12 @@ function login() {
        },
        success: callback,
        error : function(jqXHR, textStatus, errorThrown) {
-       			$("#connect p").show();
+       			$("#reponse").text("Mauvais utilisateur / mot de passe");
        		}
      });
      } else {
      $.getJSON(url, function(data) {
-     	    afficheUser(data);
+     	    //afficheUser(data);
         });
      }
  }
@@ -77,6 +78,7 @@ function postUserGeneric(user, pseudo, pwd, url) {
 		success : function(data, textStatus, jqXHR) {
             $("#ins").hide();
 			$("#connect").show();
+            $("#reponse").text("");
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#reponse").text("L'utilisateur "+user+ " existe déjà.");
