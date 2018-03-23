@@ -33,6 +33,7 @@ function login() {
 	});
 }
 
+
  function getWithAuthorizationHeader(url, callback) {
  if($("#userlogin").val() != "") {
      $.ajax
@@ -113,4 +114,66 @@ function afficheListUsers(data) {
 
 function userStringify(user) {
     return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
+}
+
+function postTable(id, intitule, public, duree, lieu, date, nbPers) {
+    postUserGeneric(id, intitule, public, duree, lieu, date, nbPers, 'v1/table/')
+}
+
+function postTableGeneric(id, intitule, public, duree, lieu, date, nbPers) {
+	console.log("postTableGeneric " + url)
+	$.ajax({
+		type : 'POST',
+		contentType : 'application/json',
+		url : url,
+		dataType : "json",
+		data : JSON.stringify({
+			"id" : id,
+			"intitule" : intitule,
+			"public" : public,
+			"duree" : duree,
+			"lieu" : lieu,
+			"date" : date,
+			"nbPers" : nbPers
+		}),
+		success : function(data, textStatus, jqXHR) {
+            $("#createTable").hide();
+			$("#table").show();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			$("#reponse").text("La table "+intitule+ " existe déjà.");
+		}
+	});
+}
+
+function listTables() {
+    listUsersGeneric("v1/table/");
+}
+
+function listTablesGeneric(url) {
+	$.getJSON(url, function(data) {
+		afficheListTables(data)
+	});
+}
+
+function afficheTable(data) {
+	console.log(data);
+	$("#reponse").html(tableStringify(data));
+}
+
+function afficheListTables(data) {
+	var ul = document.createElement('ul');
+	ul.className = "list-group";
+	var index = 0;
+	for (index = 0; index < data.length; ++index) {
+	    var li = document.createElement('li');
+	    li.className = "list-group-item";
+		li.innerHTML = tableStringify(data[index]);
+		ul.appendChild(li);
+	}
+	$("#table").html(ul);
+}
+
+function tableStringify(table) {
+    return table.id + table.intitule + table.public + table.duree + table.lieu + table.date + table.nbPers;
 }
