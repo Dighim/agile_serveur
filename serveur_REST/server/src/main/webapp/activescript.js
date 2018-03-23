@@ -1,43 +1,43 @@
 $(document).ready(function() {
-    $("#get").click(function () {
-        getUser($('#user').val(), $('#alias').val());
-    });
-    $("#gotoins").click(function (){
-        $("body>div").hide();
-        $("#ins").show();
+	$("#get").click(function () {
+		getUser($('#user').val(), $('#alias').val());
+	});
+	$("#gotoins").click(function (){
+		$("body>div").hide();
+		$("#ins").show();
 
-    });
-    $("#gotoconnect").click(function (){
-        $("body>div").hide();
-        $("#connect").show();
-    });
-    $("#insbutton").click(function () {
-        postUser(
-            $('#user').val(),
-            $('#pseudo').val(),
-            $('#passwd').val())});
-    //listUsers();
+	});
+	$("#gotoconnect").click(function (){
+		$("body>div").hide();
+		$("#connect").show();
+	});
+	$("#insbutton").click(function () {
+		postUser(
+			$('#user').val(),
+			$('#pseudo').val(),
+			$('#passwd').val())
+	});
 	$("#addTable").click(function () {
-   	postTable(
+		postTable(
 			$("#intitule").val(),
 			$("#public").val(), 
 			$("#duree").val(),
 			$("#lieu").val(),
 			$("#date").val(),
 			$("#nbPers").val()
-	);
+		);
 	});
-});
-$("#connectbutton").click(function () {
-    login();
-});
+	$("#connectbutton").click(function () {
+		login();
+	});
 
-$("#gotoallTables").click(function(){
+	$("#gotoallTables").click(function(){
+		$("body>div").hide();
 		listTables();
-		desTables = true;
-});
+	});
 
-$("#gotocreateTable").click(function (){
-	$("body>div").hide();
-	$("#createTable").show();
+	$("#gotocreateTable").click(function (){
+		$("body>div").hide();
+		$("#createTable").show();
+	});
 });

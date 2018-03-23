@@ -168,14 +168,14 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	$("body").append("<table class=\"table table-bordered\">");
+	$("body").append("<div><table class=\"table table-bordered\">");
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		$("body").append("<tr>");
 		$("body").append(tableStringify(data[index]));
 		$("body").append("</tr>");
 	}
-	$("body").append("</table>");
+	$("body").append("</table></div>");
 }
 
 function generateTables(){
