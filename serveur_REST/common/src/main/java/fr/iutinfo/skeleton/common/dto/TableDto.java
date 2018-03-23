@@ -1,6 +1,5 @@
 package fr.iutinfo.skeleton.common.dto;
-
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,7 @@ public class TableDto {
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	private LocalDate date;
+	private Timestamp date;
 	private int nbPers;
 	
 	public int getIdTable() {
@@ -45,10 +44,11 @@ public class TableDto {
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-	public LocalDate getDate() {
+	
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public int getNbPers() {

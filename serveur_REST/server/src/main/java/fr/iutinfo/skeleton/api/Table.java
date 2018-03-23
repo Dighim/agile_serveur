@@ -1,25 +1,24 @@
 package fr.iutinfo.skeleton.api;
 
-import java.security.Principal;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.iutinfo.skeleton.common.dto.TableDto;
-import fr.iutinfo.skeleton.common.dto.UserDto;
 
-public class Table implements Principal{
+
+public class Table{
 	final static Logger logger = LoggerFactory.getLogger(Table.class);
 	private int idTable;
 	private String intitule;
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	//private LocalDate date;
+	private Timestamp date;
 	private int nbPers;
 	
-	/*public Table(int idTable, String intitule, boolean publique, double duree, String lieu, int nbPers) {
+	public Table(int idTable, String intitule, boolean publique, double duree, String lieu, Timestamp date, int nbPers) {
 		super();
 		
 		this.idTable = idTable;
@@ -27,9 +26,9 @@ public class Table implements Principal{
 		this.publique = publique;
 		this.duree = duree;
 		this.lieu = lieu;
-		//this.date = date;
+		this.date = date;
 		this.nbPers = nbPers;
-	}*/
+	}
 	
 	public Table() {
     }
@@ -40,7 +39,7 @@ public class Table implements Principal{
         this.setPublique(dto.isPublique());
         this.setDuree(dto.getDuree());
         this.setLieu(dto.getLieu());
-     //   this.setDate(dto.getDate());
+        this.setDate(dto.getDate());
         this.setNbPers(dto.getNbPers());
     }
 	
@@ -76,12 +75,15 @@ public class Table implements Principal{
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
 	}
-	/*public LocalDate getDate() {
+	
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+
+	public void setDate(Timestamp date) {
 		this.date = date;
-	}*/
+	}
+
 	public int getNbPers() {
 		return nbPers;
 	}
@@ -96,14 +98,8 @@ public class Table implements Principal{
 		dto.setPublique(this.isPublique());
 		dto.setDuree(this.getDuree());
 		dto.setLieu(this.getLieu());
-		//dto.setDate(this.getDate());
+		dto.setDate(getDate());
 		dto.setNbPers(this.getNbPers());
         return dto;
     }
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "Table";
-	}
 }
