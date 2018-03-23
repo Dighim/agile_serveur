@@ -31,3 +31,13 @@ $(document).ready(function() {
 $("#connectbutton").click(function () {
     login();
 });
+
+$("#gotoallTables").click(function(){
+		listTables();
+		desTables = true;
+});
+
+$("#gotocreateTable").click(function (){
+	$("body>div").hide();
+	$("#createTable").show();
+});

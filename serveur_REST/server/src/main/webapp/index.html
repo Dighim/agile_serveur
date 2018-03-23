@@ -27,8 +27,16 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" id="table" style="display : none" href="#">Table</a>
+				<li id="table" class="nav-item dropdown" style="display:none">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Tables
+					</a>
+        			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" id="gotocreateTable" href="#">Créer Table</a>
+						<a class="dropdown-item" id="gotomyTable" href="#">Mes Tables</a>
+						<div class="dropdown-divider"></div>
+							<a class="dropdown-item" id="gotoallTables"href="#">Toutes les tables</a>
+					</div>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="gotoins" href="#">S'inscrire</a>
@@ -44,12 +52,6 @@
 </header>
 <div id="home">
 	<p>Bienvenue dans la Taverne Oubliée</p>
-	<input type="text" name="intitule" id="intitule" placeholder="Intitule" class="form-control"/>
-	<input type="text" name="public" id="public" placeholder="Public" class="form-control"/>
-	<input type="text" name="duree" id="duree" placeholder="Duree" class="form-control"/>
-	<input type="date" name="date" id="date" class="form-control"/>
-	<input type="number" name="nbPers" id="nbPers" placeholder="Nombre Personnes" class="form-control"/>
-	<button id="addTable" class="btn btn-default">Ajouter Table</button>
 </div>
 	
 	
@@ -86,8 +88,39 @@
 		</div>
 	</div>
 </div>
-<div id="profil" style="display : none">
-	
+
+<div id="createTable" style="display : none">
+        <br><br>
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        Intitulé :<input type="text" id="intitule">
+                    </td>
+                    <td>
+                        <p style="text-align:center">Id de la table</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="4" style="vertical-align:middle"><center><p>Liste des joueurs</p></center></td>
+                    <td>
+                        Lieu : <input type="text" id="lieu">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date : <input type="date" id="date"><br></td>
+                </tr>
+                <tr>
+                    <td>Duree :  <input type="text" id="duree"></td>
+                </tr>
+                    
+                    <td>nbr de joueurs max :<input id="text" id="nbPers"><br></td>
+				<tr>
+					<td>
+						Public <input type="checkbox" id="public" name="public" checked>
+					</td>
+				</tr>
+            </table>
+            <center><button id="addTable" class="btn btn-default">Créer Table</button></center>
 </div>
 <p id="reponse"></p>
 	

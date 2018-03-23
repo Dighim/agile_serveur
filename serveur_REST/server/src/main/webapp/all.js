@@ -1,5 +1,6 @@
 var desc = false;
 var user;
+var Lpublic = true;
 function getUser(name) {
 	getUserGeneric(name, "v1/user/");
 }
@@ -12,6 +13,7 @@ function getUserGeneric(name, url) {
 
 function login() {
 	getWithAuthorizationHeader("v1/login", function(data){
+		$("#table").show();
         $("#reponse").text("");
 	    $("#connect").hide();
 		$("table").show();
@@ -119,11 +121,12 @@ function userStringify(user) {
 }
 
 function postTable(intitule, public, duree, lieu, date, nbPers) {
-    postTableGeneric(intitule, public, duree, lieu, date, nbPers, 'v1/table/')
+	//console.log("Public :"+Lpublic);
+    postTableGeneric(intitule, "privé", duree, lieu, date, nbPers, 'v1/table/')
 }
 
 function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
-	console.log("postTableGeneric " + url)
+	console.log("Date: " + date)
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
@@ -140,7 +143,6 @@ function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 		}),
 		success : function(data, textStatus, jqXHR) {
             $("#createTable").hide();
-			$("#table").show();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#reponse").text("La table "+intitule+ " existe déjà.");
@@ -149,7 +151,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 }
 
 function listTables() {
-    listUsersGeneric("v1/table/");
+    listTablesGeneric("v1/table/");
 }
 
 function listTablesGeneric(url) {
@@ -164,18 +166,24 @@ function afficheTable(data) {
 }
 
 function afficheListTables(data) {
-	var ul = document.createElement('ul');
-	ul.className = "list-group";
+	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
+	$("body").append("<table class=\"table table-bordered\">");
 	for (index = 0; index < data.length; ++index) {
-	    var li = document.createElement('li');
-	    li.className = "list-group-item";
-		li.innerHTML = tableStringify(data[index]);
-		ul.appendChild(li);
+		console.log("Boucle "+index);
+		$("body").append("<tr>");
+		$("body").append(tableStringify(data[index]));
+		$("body").append("</tr>");
 	}
-	$("#table").html(ul);
+	$("body").append("</table>");
+}
+
+function generateTables(){
+	
 }
 
 function tableStringify(table) {
-    return table.id + table.intitule + table.public + table.duree + table.lieu + table.date + table.nbPers;
+	console.log("Table: "+table);
+	var tab ="<td>" + table.idTable + "  </td><td>" + table.intitule + "  </td><td>" + ((table.public) ? "public" : "privé") + "  </td><td>" + table.duree + "  </td><td>" + table.lieu + "  </td><td>" + table.date + "  </td><td>" + table.nbPers;
+	return tab;
 }
