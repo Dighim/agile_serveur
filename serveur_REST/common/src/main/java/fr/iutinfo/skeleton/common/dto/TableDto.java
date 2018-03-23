@@ -11,7 +11,8 @@ public class TableDto {
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	private Timestamp date;
+	private String date;
+	private String heure;
 	private int nbPers;
 	private int crea;
 
@@ -47,10 +48,10 @@ public class TableDto {
 		this.lieu = lieu;
 	}
 	
-	public Timestamp getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getNbPers() {
@@ -65,5 +66,10 @@ public class TableDto {
 	public void setCrea(int crea) {
 		this.crea = crea;
 	}
-	
+	public String getHeure() {
+		return heure;
+	}
+	public void setHeure(String heure) {
+		this.heure = heure;
+	}	
 }
