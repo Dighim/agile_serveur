@@ -139,12 +139,12 @@ function userStringify(user) {
 	return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
 }
 
-function postTable(intitule, public, duree, lieu, date, nbPers) {
+function postTable(intitule, public, duree, lieu, date,heure , nbPers) {
 	//console.log("Public :"+Lpublic);
-	postTableGeneric(intitule, "privé", duree, lieu, date, nbPers, 'v1/table/')
+	postTableGeneric(intitule, "privé", duree, lieu, date, heure, nbPers, 'v1/table/')
 }
 
-function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
+function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url) {
 	console.log("Date: " + date)
 	
 	$.ajax({
@@ -158,7 +158,8 @@ function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 			"public" : public,
 			"duree" : duree,
 			"lieu" : lieu,
-			"date" : d,
+			"date" : date,
+			"heure" :heure,
 			"nbPers" : nbPers
 		}),
 		success : function(data, textStatus, jqXHR) {
@@ -188,7 +189,7 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	var html = "<div><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
+	var html = "<div><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		html += "<tr>"+tableStringify(data[index])+"</tr>";
