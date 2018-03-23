@@ -37,7 +37,7 @@ function login() {
 			}
 		});
 		$("#exit").off("click");
-		$("#exit").click(function() {
+		$("#exit").click(function() {
 			document.location.href="/";
 		});
 		//afficheUser(data);
@@ -146,6 +146,7 @@ function postTable(intitule, public, duree, lieu, date, nbPers) {
 
 function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 	console.log("Date: " + date)
+	
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
@@ -157,7 +158,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 			"public" : public,
 			"duree" : duree,
 			"lieu" : lieu,
-			"date" : date,
+			"date" : d,
 			"nbPers" : nbPers
 		}),
 		success : function(data, textStatus, jqXHR) {
@@ -197,7 +198,7 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=#>" + table.intitule + "</a></td><td id='createur'></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+"</td>";
+	var tab ="<td><a href=#>" + table.intitule + "</a></td><td id='createur'>{Créateur}</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+"</td>";
 	return tab;
 }
 
