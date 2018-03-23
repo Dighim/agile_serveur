@@ -13,6 +13,8 @@ public class TableDto {
 	private String lieu;
 	private Timestamp date;
 	private int nbPers;
+	private int crea;
+
 	
 	public int getIdTable() {
 		return idTable;
@@ -57,4 +59,11 @@ public class TableDto {
 	public void setNbPers(int nbPers) {
 		this.nbPers = nbPers;
 	}
+	public int getCrea() {
+		return crea;
+	}
+	public void setCrea(int crea) {
+		this.crea = crea;
+	}
+	
 }

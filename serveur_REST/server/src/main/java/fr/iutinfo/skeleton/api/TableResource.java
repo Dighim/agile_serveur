@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,29 @@ public class TableResource {
 			dao.insert(t); 
 		}
 	}
+    
+    @GET
+    @Path("/{idTable}/users")
+	public List<UserDto> getUserFromTable(@PathParam("idTable") int idTable) throws SQLException {
+    	if (!tableExist("inscriptions")) {
+    		logger.debug("Create table des inscription à une table");
+    		dao.createInsTable();
+    	}
+    	
+    	List<User> users= dao.listUser(idTable);
+    		if(users==null) {
+    			throw new WebApplicationException(404);
+    		}
+    	return users.stream().map(User::convertToDto).collect(Collectors.toList());
+	}
+    
+    @POST
+    @Path("/{idTable}")
+   	public void inscription(@PathParam("idTable") int idTable, UserDto dto){
+   		User user= new User();
+   		user.initFromDto(dto);
+   		dao.inscription(idTable,dto.getId());
+   	}
     
     @POST
 	public TableDto createTable(TableDto dto){

@@ -40,4 +40,8 @@ $(document).ready(function() {
 		$("body>div").hide();
 		$("#createTable").show();
 	});
+	
+	$("#testins").click(function (){
+		
+	});
 });

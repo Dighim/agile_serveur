@@ -1,6 +1,10 @@
 var desc = false;
-var user;
+var currentUser;
+var login;
+var pseudo;
+var id;
 var Lpublic = true;
+
 function getUser(name) {
 	getUserGeneric(name, "v1/user/");
 }
@@ -13,6 +17,10 @@ function getUserGeneric(name, url) {
 
 function login() {
 	getWithAuthorizationHeader("v1/login", function(data){
+		console.log(data);
+		currentUser = data;
+		id = currentUser.id;
+		pseudo = currentUser.pseudo;
 		$("#table").show();
         $("#reponse").text("");
 	    $("#connect").hide();
@@ -46,7 +54,7 @@ function login() {
        dataType: 'json',
        beforeSend : function(req) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
-		   user = $("#userlogin").val();
+		   login = $("#userlogin").val();
        },
        success: callback,
        error : function(jqXHR, textStatus, errorThrown) {
@@ -184,6 +192,38 @@ function generateTables(){
 
 function tableStringify(table) {
 	console.log("Table: "+table);
-	var tab ="<td>" + table.idTable + "  </td><td>" + table.intitule + "  </td><td>" + ((table.public) ? "public" : "privé") + "  </td><td>" + table.duree + "  </td><td>" + table.lieu + "  </td><td>" + table.date + "  </td><td>" + table.nbPers;
+	var tab ="<td>" + table.idTable + "  </td><td>" + table.intitule + "  </td><td>" + ((table.public) ? "public" : "privé") + "  </td><td>" + table.duree + "  </td><td>" + table.lieu + "  </td><td>" + table.date + "  </td><td>" + table.nbPers + "<input type='number' id='testid'><button id='testins' class='btn btn-default'>Test ins</button>";
+
 	return tab;
+}
+
+
+
+
+function testpostUser(id) {
+    testpostUserGeneric("carle", "jean", "123", 'v1/table/'+id)
+}
+
+function tespostUserGeneric(user, pseudo, pwd, url) {
+	console.log("postUserGeneric " + url)
+	$.ajax({
+		type : 'POST',
+		contentType : 'application/json',
+		url : url,
+		dataType : "json",
+		data : JSON.stringify({
+			"user" : user,
+			"pseudo" : pseudo,
+			"password" : pwd,
+			"id" : 0
+		}),
+		success : function(data, textStatus, jqXHR) {
+            $("#ins").hide();
+			$("#connect").show();
+            $("#reponse").text("");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			$("#reponse").text("L'utilisateur "+user+ " existe déjà.");
+		}
+	});
 }
