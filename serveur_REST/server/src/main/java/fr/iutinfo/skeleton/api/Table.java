@@ -1,6 +1,7 @@
 package fr.iutinfo.skeleton.api;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,19 +18,25 @@ public class Table{
 	private String lieu;
 	private Timestamp date;
 	private int nbPers;
+	private List<User> participants;
+	private int crea;
 	
-	public Table(int idTable, String intitule, boolean publique, double duree, String lieu, Timestamp date, int nbPers) {
-		super();
-		
-		this.idTable = idTable;
-		this.intitule = intitule;
-		this.publique = publique;
-		this.duree = duree;
-		this.lieu = lieu;
-		this.date = date;
-		this.nbPers = nbPers;
+	public List<User> getParticipants() {
+		return participants;
 	}
-	
+
+	public void setParticipants(List<User> participants) {
+		this.participants = participants;
+	}
+
+	public int getCrea() {
+		return crea;
+	}
+
+	public void setCrea(int crea) {
+		this.crea = crea;
+	}
+
 	public Table() {
     }
 	
@@ -41,6 +48,7 @@ public class Table{
         this.setLieu(dto.getLieu());
         this.setDate(dto.getDate());
         this.setNbPers(dto.getNbPers());
+        this.setCrea(dto.getCrea());
     }
 	
 	public double getDuree() {
@@ -98,8 +106,9 @@ public class Table{
 		dto.setPublique(this.isPublique());
 		dto.setDuree(this.getDuree());
 		dto.setLieu(this.getLieu());
-		dto.setDate(getDate());
+		dto.setDate(this.getDate());
 		dto.setNbPers(this.getNbPers());
+		dto.setCrea(this.getCrea());
         return dto;
     }
 }
