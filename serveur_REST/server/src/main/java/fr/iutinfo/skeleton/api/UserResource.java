@@ -1,19 +1,30 @@
 package fr.iutinfo.skeleton.api;
 
-import fr.iutinfo.skeleton.common.dto.UserDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import static fr.iutinfo.skeleton.api.BDDFactory.getDbi;
+import static fr.iutinfo.skeleton.api.BDDFactory.tableExist;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static fr.iutinfo.skeleton.api.BDDFactory.getDbi;
-import static fr.iutinfo.skeleton.api.BDDFactory.tableExist;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.iutinfo.skeleton.common.dto.TableDto;
+import fr.iutinfo.skeleton.common.dto.UserDto;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -41,15 +52,17 @@ public class UserResource {
 		dto.setId(id);
 		return dto;
 	}
-
+	
 	@GET
-	@Path("/{user}")
-	public UserDto getUser(@PathParam("user") String name) {
-		User user = dao.findByName(name);
-		if (user == null) {
-			throw new WebApplicationException(404);
-		}
-		return user.convertToDto();
+	@Path("/{id}/tables")
+	public List<TableDto> getTablesFromUser(@PathParam("id") int id) throws SQLException{
+		TableDao tDao = getDbi().open(TableDao.class);
+		if (!tableExist("inscriptions")) {
+    		logger.debug("Create table des inscription à une table");
+    		tDao.createInsTable();
+    	}
+		List <Table> tables = dao.listTable(id);		
+		return tables.stream().map(Table::convertToDto).collect(Collectors.toList());
 	}
 
 	@GET
