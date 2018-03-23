@@ -17,6 +17,10 @@ public interface UserDao {
     @SqlQuery("select * from users where user = :user")
     @RegisterMapperFactory(BeanMapperFactory.class)
     User findByName(@Bind("user") String user);
+    
+    @SqlQuery("select * from inscriptions join tables on tables.idTable=inscriptions.idTable where inscriptions.idTable = :id")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<Table> listTable(@Bind("id") int id);
 
     @SqlQuery("select * from users where search like :user")
     @RegisterMapperFactory(BeanMapperFactory.class)

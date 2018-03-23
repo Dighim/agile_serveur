@@ -37,7 +37,7 @@ function login() {
 			}
 		});
 		$("#exit").off("click");
-		$("#exit").click(function() {
+		$("#exit").click(function() {
 			document.location.href="/";
 		});
 		//afficheUser(data);
