@@ -19,6 +19,7 @@ public class User implements Principal {
     private String password;
     private String passwdHash;
     private String salt;
+    private boolean admin;
 
     public User(int id, String name) {
         this.id = id;
@@ -36,7 +37,16 @@ public class User implements Principal {
 
     
     
-    public static User getAnonymousUser() {
+    
+    public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public static User getAnonymousUser() {
         return anonymous;
     }
  
