@@ -16,3 +16,9 @@ nav{
 #description{
     position: center;
 }
+#ins{
+	border-width: 0.5px;
+}
+#connect{
+	border-width: 0.5px;
+}

@@ -21,3 +21,15 @@ $(document).ready(function() {
 $("#connectbutton").click(function () {
     login();
 });
+
+$("#addTable").click(function () {
+   	postTable(
+			$("#idTable").val(),
+			$("#intitule").val(),
+			$("#public").val(), 
+			$("#duree").val(),
+			$("#lieu").val(),
+			$("#date").val(),
+			$("#nbPers").val()
+	);
+});
