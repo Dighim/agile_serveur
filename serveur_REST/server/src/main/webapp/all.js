@@ -32,7 +32,7 @@ function login() {
 		$("#gotoprof").off("click");
 		$("#gotoprof").click(function (){
             if(!desc) {
-                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: <span>'+user+'</span></div></div>').appendTo($("body"));
+                $('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+login+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
                 desc = true;
             }
 		});
@@ -176,12 +176,10 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	$("body").append("<div><table class=\"table table-bordered\">");
+	var html = "<div><table class=\"table table-bordered\">";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
-		$("body").append("<tr>");
-		$("body").append(tableStringify(data[index]));
-		$("body").append("</tr>");
+		html += "<tr>"+tableStringify(data[index]+"</tr>";
 	}
 	$("body").append("</table></div>");
 }
@@ -191,8 +189,7 @@ function generateTables(){
 }
 
 function tableStringify(table) {
-	console.log("Table: "+table);
-	var tab ="<td>" + table.idTable + "  </td><td>" + table.intitule + "  </td><td>" + ((table.public) ? "public" : "privé") + "  </td><td>" + table.duree + "  </td><td>" + table.lieu + "  </td><td>" + table.date + "  </td><td>" + table.nbPers + "<input type='number' id='testid'><button id='testins' class='btn btn-default'>Test ins</button>";
+	var tab ="<td>" + table.idTable + "  </td><td>" + table.intitule + "  </td><td>" + ((table.public) ? "public" : "privé") + "  </td><td>" + table.duree + "  </td><td>" + table.lieu + "  </td><td>" + table.date + "  </td><td>" + table.nbPers+"</td>";
 
 	return tab;
 }
