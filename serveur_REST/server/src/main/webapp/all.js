@@ -116,11 +116,11 @@ function userStringify(user) {
     return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
 }
 
-function postTable(id, intitule, public, duree, lieu, date, nbPers) {
-    postUserGeneric(id, intitule, public, duree, lieu, date, nbPers, 'v1/table/')
+function postTable(intitule, public, duree, lieu, date, nbPers) {
+    postTableGeneric(intitule, public, duree, lieu, date, nbPers, 'v1/table/')
 }
 
-function postTableGeneric(id, intitule, public, duree, lieu, date, nbPers) {
+function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 	console.log("postTableGeneric " + url)
 	$.ajax({
 		type : 'POST',
@@ -128,7 +128,7 @@ function postTableGeneric(id, intitule, public, duree, lieu, date, nbPers) {
 		url : url,
 		dataType : "json",
 		data : JSON.stringify({
-			"id" : id,
+			"id" : 0,
 			"intitule" : intitule,
 			"public" : public,
 			"duree" : duree,

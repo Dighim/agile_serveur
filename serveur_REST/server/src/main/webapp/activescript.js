@@ -17,14 +17,8 @@ $(document).ready(function() {
             $('#pseudo').val(),
             $('#passwd').val())});
     //listUsers();
-});
-$("#connectbutton").click(function () {
-    login();
-});
-
-$("#addTable").click(function () {
+	$("#addTable").click(function () {
    	postTable(
-			$("#idTable").val(),
 			$("#intitule").val(),
 			$("#public").val(), 
 			$("#duree").val(),
@@ -32,4 +26,8 @@ $("#addTable").click(function () {
 			$("#date").val(),
 			$("#nbPers").val()
 	);
+	});
+});
+$("#connectbutton").click(function () {
+    login();
 });
