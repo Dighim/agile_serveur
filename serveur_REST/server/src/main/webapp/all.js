@@ -158,7 +158,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, nbPers, url) {
 			"public" : public,
 			"duree" : duree,
 			"lieu" : lieu,
-			"date" : d,
+			"date" : date,
 			"nbPers" : nbPers
 		}),
 		success : function(data, textStatus, jqXHR) {
