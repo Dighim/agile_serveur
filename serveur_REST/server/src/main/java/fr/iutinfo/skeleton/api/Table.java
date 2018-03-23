@@ -1,26 +1,27 @@
 package fr.iutinfo.skeleton.api;
 
+import java.security.Principal;
 import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.iutinfo.skeleton.common.dto.TableDto;
 import fr.iutinfo.skeleton.common.dto.UserDto;
 
-public class Table {
+public class Table implements Principal{
 	final static Logger logger = LoggerFactory.getLogger(Table.class);
-	private String nomTable;
 	private int idTable;
 	private String intitule;
 	private boolean publique;
-	private int duree;
+	private double duree;
 	private String lieu;
 	private LocalDate date;
 	private int nbPers;
 	
-	public Table(String nomTable,int idTable, String intitule, boolean publique, int duree, String lieu, LocalDate date, int nbPers) {
+	public Table(int idTable, String intitule, boolean publique, double duree, String lieu, LocalDate date, int nbPers) {
 		super();
-		this.nomTable=nomTable;
+		
 		this.idTable = idTable;
 		this.intitule = intitule;
 		this.publique = publique;
@@ -30,19 +31,24 @@ public class Table {
 		this.nbPers = nbPers;
 	}
 	
-	public String getNomTable() {
-		return nomTable;
-	}
-
-	public void setNomTable(String nomTable) {
-		this.nomTable = nomTable;
-	}
-
-	public int getDuree() {
+	public Table() {
+    }
+	
+	public void initFromDto(TableDto dto) {
+    	this.setIdTable(dto.getIdTable());
+        this.setIntitule(dto.getIntitule());
+        this.setPublique(dto.isPublique());
+        this.setDuree(dto.getDuree());
+        this.setLieu(dto.getLieu());
+        this.setDate(dto.getDate());
+        this.setNbPers(dto.getNbPers());
+    }
+	
+	public double getDuree() {
 		return duree;
 	}
 
-	public void setDuree(int duree) {
+	public void setDuree(double duree) {
 		this.duree = duree;
 	}
 
@@ -64,12 +70,6 @@ public class Table {
 	public void setPublique(boolean publique) {
 		this.publique = publique;
 	}
-	public int getduree() {
-		return duree;
-	}
-	public void setduree(int duree) {
-		this.duree = duree;
-	}
 	public String getLieu() {
 		return lieu;
 	}
@@ -89,9 +89,21 @@ public class Table {
 		this.nbPers = nbPers;
 	}
 	
-	/*  public TableDto convertToDto() {
-		  	TableDto dto = new TableDto();
-	        
-	        return dto;
-	    }*/
+	public TableDto convertToDto() {
+		TableDto dto = new TableDto();
+		dto.setIdTable(this.getIdTable());
+		dto.setIntitule(this.getIntitule());
+		dto.setPublique(this.isPublique());
+		dto.setDuree(this.getDuree());
+		dto.setLieu(this.getLieu());
+		dto.setDate(this.getDate());
+		dto.setNbPers(this.getNbPers());
+        return dto;
+    }
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Table";
+	}
 }

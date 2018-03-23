@@ -11,20 +11,20 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface TableDao {
-	@SqlUpdate("create table tables (idTable primary key autoincrement,nomTable varchar(100),intitule varchar(1000),publique boolean,duree integer,lieu varchar(100),date Date,nbPers integer)")
+	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),date LocalDate,nbPers integer)")
     void createBaseTable();
 	
-	@SqlUpdate("insert into tables (nomTable,intitule,publique,duree, lieu,date,nbPers) values (:nomTable, :intitule, :duree, :lieu, :date, :nbPers)")
+	@SqlUpdate("insert into tables (intitule,publique,duree, lieu,date,nbPers) values (:intitule, :publique, :duree, :lieu, :date, :nbPers)")
     @GetGeneratedKeys
     int insert(@BindBean() Table table);
 	
-	@SqlQuery("select * from tables where nomTable = :nomTable")
+	@SqlQuery("select * from tables where intitule = :intitule")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    User findByTableName(@Bind("nomTable") String nomTable);
+    Table findByTableName(@Bind("intitule") String intitule);
 	
-	@SqlQuery("select * from tables where search like :nomTable")
+	@SqlQuery("select * from tables where search like :intitule")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    List<User> search(@Bind("nomTable") String nomTable);
+    List<Table> search(@Bind("intitule") String intitule);
 	
 	@SqlUpdate("drop table if exists tables")
 	void dropUserTable();
@@ -38,7 +38,7 @@ public interface TableDao {
 	
 	@SqlQuery("select * from tables where idTable = :id")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    User findById(@Bind("id") int id);
+    Table findById(@Bind("id") int id);
 
     void close();
 	
