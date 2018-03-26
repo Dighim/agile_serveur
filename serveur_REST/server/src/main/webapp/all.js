@@ -139,11 +139,11 @@ function userStringify(user) {
 	return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
 }
 
-function postTable(intitule, public, duree, lieu, date,heure , nbPers) {
-	postTableGeneric(intitule, "privé", duree, lieu, date, heure, nbPers, 'v1/table/')
+function postTable(intitule, public, duree, lieu, date,heure , nbPers, callback) {
+	postTableGeneric(intitule, "privé", duree, lieu, date, heure, nbPers, 'v1/table/', callback)
 }
 
-function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url) {
+function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url, callback) {
 	var currentdate = new Date();
 	var dateTab = date.split("/");
 	var year = dateTab[2];
@@ -169,6 +169,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
+			callback();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#reponse").text("La table "+intitule+ " existe déjà.");
@@ -194,14 +195,15 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	var html = "<div><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
+	var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		html += "<tr>"+tableStringify(data[index])+"</tr>";
 		showCrea(data[index].crea, function(creaPseudo, idTable){
 			$('#user'+idTable).text(creaPseudo);
-		});
+		}, data[index].idTable);
 	}
+	$("#afficheTable").remove();
 	$("body").append(html);
 	$(".gotocreateTable").click(function (){
 		console.log("gotocreatetable");
@@ -219,7 +221,7 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.id+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+((table.public==0) ? "public" : "prive")+"</td><td>0/" + table.nbPers+ "</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+((table.public==0) ? "public" : "prive")+"</td><td>0/" + table.nbPers+ "</td>";
 	return tab;
 }
 

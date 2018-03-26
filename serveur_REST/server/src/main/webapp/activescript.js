@@ -26,7 +26,9 @@ $(document).ready(function() {
 			$("#date").val(),
             $("#heure").val(),
 			$("#nbPers").val()
-		);
+		, function(){
+			listTables()
+		});
 	});
 	$("#connectbutton").click(function () {
 		login();
