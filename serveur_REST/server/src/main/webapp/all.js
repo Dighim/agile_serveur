@@ -202,6 +202,7 @@ function afficheListTables(data) {
 		showCrea(data[index].crea, function(creaPseudo, idTable){
 			$('#user'+idTable).text(creaPseudo);
 		}, data[index].idTable);
+        getNbIns(data[index]);
 	}
 	$("#afficheTable").remove();
 	$("body").append(html);
@@ -221,11 +222,30 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
 	return tab;
 }
 
+function getNbIns(table){
+	$.ajax({
+		type : 'GET',
+		contentType : 'application/json',
+		url : "/v1/table/"+table.idTable+"/ins",
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			$('#nbIns'+table.idTable).text(data+"/"+ table.nbPers);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("erreur");
+		}
+	});
+}
+
+
 function inscription(idTable){
+    var dif=$("#nbIns"+idTable).text();
+    var s=dif.split("/",2);
+    if(s[0]!=s[1]){
 	console.log("idT; "+idTable);
 	$.ajax({
 		type : 'POST',
@@ -238,6 +258,7 @@ function inscription(idTable){
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log("inscription failed");		}
 	});
+    }
 }
 
 function afficheTableDetails(table){
