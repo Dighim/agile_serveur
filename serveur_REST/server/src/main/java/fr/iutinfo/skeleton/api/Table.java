@@ -16,7 +16,7 @@ public class Table{
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	private LocalDateTime date;
+	private String date;
 	private int nbPers;
 	private List<User> participants;
 	private int crea;
@@ -84,11 +84,11 @@ public class Table{
 		this.lieu = lieu;
 	}
 	
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

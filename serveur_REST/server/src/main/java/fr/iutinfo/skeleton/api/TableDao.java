@@ -11,7 +11,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface TableDao {
-	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),date LocalDateTime,nbPers integer,crea integer)")
+	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),date varchar,nbPers integer,crea integer)")
     void createBaseTable();
 	
 	@SqlUpdate("create table inscriptions (idUser integer not null references users(id),idTable integer not null references tables(idTable), primary key (idUser, idTable))")

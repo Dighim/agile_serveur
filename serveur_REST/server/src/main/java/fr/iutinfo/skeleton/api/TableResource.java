@@ -44,7 +44,7 @@ public class TableResource {
 			t.setLieu("ici");
 			t.setNbPers(1);
 			t.setPublique(false);
-			t.setDate(LocalDateTime.now());
+			t.setDate(LocalDateTime.now().toString());
 			dao.insert(t); 
 		}
 	}

@@ -13,8 +13,7 @@ public class TableDto {
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime date;
+	private String date;
 	private int nbPers;
 	private int crea;
 
@@ -50,10 +49,10 @@ public class TableDto {
 		this.lieu = lieu;
 	}
 	
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getNbPers() {

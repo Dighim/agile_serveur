@@ -206,7 +206,7 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=#>" + table.intitule + "</a></td><td id='createur'>{Créateur}</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+"</td>";
+	var tab ="<td><a href=#>" + table.intitule + "</a></td><td id='createur'>{Créateur}</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T", "</td><td>") + "  </td><td> "+ table.lieu+"</td><td>0/" + table.nbPers+"</td>";
 	return tab;
 }
 
