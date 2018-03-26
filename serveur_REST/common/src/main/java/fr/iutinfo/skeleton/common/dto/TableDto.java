@@ -1,8 +1,12 @@
 package fr.iutinfo.skeleton.common.dto;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.iutinfo.skeleton.api.LocalDateTimeAdapter;
 
 public class TableDto {
 	final static Logger logger = LoggerFactory.getLogger(TableDto.class);
@@ -11,8 +15,8 @@ public class TableDto {
 	private boolean publique;
 	private double duree;
 	private String lieu;
-	private String date;
-	private String heure;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime date;
 	private int nbPers;
 	private int crea;
 
@@ -48,10 +52,10 @@ public class TableDto {
 		this.lieu = lieu;
 	}
 	
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 	public int getNbPers() {
@@ -66,10 +70,4 @@ public class TableDto {
 	public void setCrea(int crea) {
 		this.crea = crea;
 	}
-	public String getHeure() {
-		return heure;
-	}
-	public void setHeure(String heure) {
-		this.heure = heure;
-	}	
 }
