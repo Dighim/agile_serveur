@@ -241,24 +241,51 @@ function inscription(idTable){
 }
 
 function afficheTableDetails(table){
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>+modif(table)+<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
 	$("#inscription").click(function(){
 		inscription(table.idTable);
 	});
-    $("#modification").click(function(){
-         $("body>div").hide();
-    });
+	$("#modification").click(function(){
+		$("body>div").hide();
+	});
+	$("#deleteTab").click(function(){
+		deleteTable(table.idTable);
+	});
 }
 
 function modif(table){
-    console.log(table.crea);
-    console.log(id);
-    if(table.crea==id){
-        return "<button id='modification' class='btn btn-default'> Modifier </button>";
-    }
-    else{
-        return ""
-    }
-    
-   
+	console.log(table.crea);
+	console.log(id);
+	if(table.crea==id){
+		return "<button id='modification' class='btn btn-default'> Modifier </button>";
+	}
+	else{
+		return ""
+	}
+}
+
+function deleteTab(table){
+	console.log(table.crea);
+	console.log(id);
+	if(table.crea==id){
+		return "<button id='deleteTab' class='btn btn-default'>Supprimer</button>";
+	}
+	else{
+		return ""
+	}
+}
+function deleteTable(idTable){
+	console.log("idTable: "+idTable);
+	$.ajax({
+		type : 'DELETE',
+		contentType : 'application/json',
+		url : "/v1/table/"+idTable,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			console.log("table deleted");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error delete table");
+		}
+	});
 }
