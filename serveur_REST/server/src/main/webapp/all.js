@@ -1,4 +1,3 @@
-var desc = false;
 var currentUser;
 var log;
 var pseudo;
@@ -30,15 +29,14 @@ function login() {
 		document.getElementById('gotoins').id = 'gotoprof';
 		document.getElementById('gotoconnect').id = 'exit';
 		$("#gotoprof").off("click");
-		/*$("#gotoprof").click(function (){
-			if(!desc) {
-				$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+log+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
-				desc = true;
-			}
-		});*/
 		$("#exit").off("click");
 		$("#exit").click(function() {
 			document.location.href="/";
+		});
+		$("#gotoprof").click(function(){
+			$("body>div").hide();
+			afficheProfil();
+
 		});
 		//afficheUser(data);
 	});
@@ -95,6 +93,12 @@ function postUserGeneric(user, pseudo, pwd, url) {
 			$("#reponse").text("L'utilisateur "+user+ " existe déjà.");
 		}
 	});
+}
+
+
+function afficheProfil(){
+	$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+log+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
+
 }
 
 function listUsers() {
