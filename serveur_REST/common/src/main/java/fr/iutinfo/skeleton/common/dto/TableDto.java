@@ -1,7 +1,4 @@
 package fr.iutinfo.skeleton.common.dto;
-import java.time.LocalDateTime;
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +13,15 @@ public class TableDto {
 	private String date;
 	private int nbPers;
 	private int crea;
+	private int etat;
 
 	
+	public int getEtat() {
+		return etat;
+	}
+	public void setEtat(int etat) {
+		this.etat = etat;
+	}
 	public int getIdTable() {
 		return idTable;
 	}

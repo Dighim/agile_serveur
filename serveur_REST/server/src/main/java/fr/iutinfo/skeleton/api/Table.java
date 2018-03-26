@@ -1,8 +1,5 @@
 package fr.iutinfo.skeleton.api;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,15 +15,15 @@ public class Table{
 	private String lieu;
 	private String date;
 	private int nbPers;
-	private List<User> participants;
 	private int crea;
+	private int etat;
 	
-	public List<User> getParticipants() {
-		return participants;
+	public int getEtat() {
+		return etat;
 	}
 
-	public void setParticipants(List<User> participants) {
-		this.participants = participants;
+	public void setEtat(int etat) {
+		this.etat = etat;
 	}
 
 	public int getCrea() {
