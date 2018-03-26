@@ -1,6 +1,7 @@
 package fr.iutinfo.skeleton.api;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class Table{
         this.setPublique(dto.isPublique());
         this.setDuree(dto.getDuree());
         this.setLieu(dto.getLieu());
-        this.setDate(dto.getDate());
+        this.setDate(dto.getDate(), dto.getHeure());
         this.setNbPers(dto.getNbPers());
         this.setCrea(dto.getCrea());
     }
@@ -90,6 +91,11 @@ public class Table{
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+	
+	public void setDate(String date, String heure) {
+		this.date = Timestamp.valueOf(date+" "+heure+":00");
+		
 	}
 
 	public int getNbPers() {

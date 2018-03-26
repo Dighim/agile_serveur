@@ -24,6 +24,7 @@ $(document).ready(function() {
 			$("#duree").val(),
 			$("#lieu").val(),
 			$("#date").val(),
+            $("#heure").val(),
 			$("#nbPers").val()
 		);
 	});
