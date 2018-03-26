@@ -50,6 +50,9 @@ public interface TableDao {
 	@SqlUpdate("update tables set etat=:etat where idTable=:idTable")
 	void updateState(@Bind("etat") int etat, @Bind("idTable") int idTable);
 	
+	@SqlUpdate("update tables set intitule=:intitule, publique=:publique, duree=:duree, lieu=:lieu, date=:date, nbPers=:nbPers, crea=:crea, etat=:etat where idTable=:idTable")
+	void updateTable(@Bind("idTable") int idTable, @Bind("intitule") String intitule, @Bind("publique") boolean publique,@Bind("duree") double duree, @Bind("lieu") String lieu, @Bind("date") String date, @Bind("nbPers") int nbPers, @Bind("crea") int crea, @Bind("etat") int etat);
+	
 	@SqlQuery("select * from tables order by idTable")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Table> all();

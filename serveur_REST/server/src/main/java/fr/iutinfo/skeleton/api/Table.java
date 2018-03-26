@@ -43,6 +43,7 @@ public class Table{
         this.setPublique(dto.isPublique());
         this.setDuree(dto.getDuree());
         this.setLieu(dto.getLieu());
+        this.setEtat(dto.getEtat());
         this.setDate(dto.getDate());
         this.setNbPers(dto.getNbPers());
         this.setCrea(dto.getCrea());
@@ -103,6 +104,7 @@ public class Table{
 		dto.setPublique(this.isPublique());
 		dto.setDuree(this.getDuree());
 		dto.setLieu(this.getLieu());
+		dto.setEtat(this.getEtat());
 		dto.setDate(this.getDate());
 		dto.setNbPers(this.getNbPers());
 		dto.setCrea(this.getCrea());

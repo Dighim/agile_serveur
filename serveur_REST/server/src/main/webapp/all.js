@@ -1,4 +1,3 @@
-var desc = false;
 var currentUser;
 var log;
 var pseudo;
@@ -30,15 +29,14 @@ function login() {
 		document.getElementById('gotoins').id = 'gotoprof';
 		document.getElementById('gotoconnect').id = 'exit';
 		$("#gotoprof").off("click");
-		/*$("#gotoprof").click(function (){
-			if(!desc) {
-				$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+log+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
-				desc = true;
-			}
-		});*/
 		$("#exit").off("click");
 		$("#exit").click(function() {
 			document.location.href="/";
+		});
+		$("#gotoprof").click(function(){
+			$("body>div").hide();
+			afficheProfil();
+
 		});
 		//afficheUser(data);
 	});
@@ -97,6 +95,12 @@ function postUserGeneric(user, pseudo, pwd, url) {
 	});
 }
 
+
+function afficheProfil(){
+	$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+log+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
+
+}
+
 function listUsers() {
 	listUsersGeneric("v1/user/");
 }
@@ -137,6 +141,45 @@ function afficheListUsers(data) {
 
 function userStringify(user) {
 	return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
+}
+
+function putTable(idT, intitule, public, duree, lieu, date,heure , nbPers, etat, callback) {
+	putTableGeneric(idT, intitule, public, duree, lieu, date, heure, nbPers, etat, callback)
+}
+
+function putTableGeneric(idT, intitule, public, duree, lieu, date, heure, nbPers, etat, callback) {
+	var currentdate = new Date();
+	var dateTab = date.split("-");
+	var year = dateTab[0];
+	var month = dateTab[1];
+	var day = dateTab[2];
+	var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
+	console.log("Date: " + localDate);
+	console.log("Nombre personnes :"+nbPers);
+	$.ajax({
+		type : 'PUT',
+		contentType : 'application/json',
+		url : "/v1/table/"+idT,
+		dataType : "json",
+		data : JSON.stringify({
+			"id" : 0,
+			"intitule" : intitule,
+			"publique" : (public)?1:0,
+			"duree" : duree,
+			"lieu" : lieu,
+			"date" : localDate,
+			"nbPers" : nbPers,
+			"crea" : id,
+			"etat" : etat
+		}),
+		success : function(data, textStatus, jqXHR) {
+			$("#modifTable").hide();
+			callback();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			$("#reponse").text("Erreur modif table");
+		}
+	});
 }
 
 function postTable(intitule, public, duree, lieu, date,heure , nbPers, callback) {
@@ -263,16 +306,20 @@ function inscription(idTable){
 
 function afficheTableDetails(table){
 	$("#afficheUneTable").remove();
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
 	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
 	});
 	$("#modification").click(function(){
 		$("body>div").hide();
+		afficheModifTable(table);
 	});
 	$("#deleteTab").click(function(){
 		deleteTable(table.idTable);
+	});
+	$("#fermer").click(function(){
+		$("#afficheUneTable").hide();
 	});
 }
 
@@ -333,5 +380,25 @@ function deleteTable(idTable){
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log("error delete table");
 		}
+	});
+}
+
+function afficheModifTable(table){
+	$("#createTable").hide();
+	$("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intitule' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieu' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='date' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heure' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='time' id='duree value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPers' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='public' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
+	$("#modifTab").click(function(){
+		putTable(
+			table.idTable,
+			$("#intitule").val(),
+			$("#public").is(":checked"), 
+			$("#duree").val(),
+			$("#lieu").val(),
+			$("#date").val(),
+			$("#heure").val(),
+			$("#nbPers").val(),
+			table.etat
+			, function(){
+				listTables();
+			});
 	});
 }
