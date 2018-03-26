@@ -48,16 +48,15 @@ public class TableResource {
 			t.setDate(LocalDateTime.now().toString());
 			dao.insert(t); 
 		}
+		if (!tableExist("inscriptions")) {
+			dao.createInsTable();
+		}
+		
 	}
     
     @GET
     @Path("/{idTable}/users")
 	public List<UserDto> getUserFromTable(@PathParam("idTable") int idTable) throws SQLException {
-    	if (!tableExist("inscriptions")) {
-    		logger.debug("Create table des inscription à une table");
-    		dao.createInsTable();
-    	}
-    	
     	List<User> users= dao.listUser(idTable);
     		if(users==null) {
     			throw new WebApplicationException(404);
@@ -66,11 +65,9 @@ public class TableResource {
 	}
     
     @POST
-    @Path("/{idTable}")
-   	public void inscription(@PathParam("idTable") int idTable, UserDto dto){
-   		User user= new User();
-   		user.initFromDto(dto);
-   		dao.inscription(idTable,dto.getId());
+    @Path("/{idTable}/ins/{idUser}")
+   	public void inscription(@PathParam("idTable") int idTable, @PathParam("idUser") int idUser){
+   		dao.inscription(idTable,idUser);
    	}
     
     @POST
