@@ -159,10 +159,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"duree" : duree,
 			"lieu" : lieu,
 			"date" : date,
-<<<<<<< HEAD
-=======
 			"heure" :heure,
->>>>>>> b98766a703c8a1ddf481ec31e0e5a61ee675acb8
 			"nbPers" : nbPers
 		}),
 		success : function(data, textStatus, jqXHR) {
