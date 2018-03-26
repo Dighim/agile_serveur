@@ -55,6 +55,7 @@ function getWithAuthorizationHeader(url, callback) {
 			beforeSend : function(req) {
 				req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
 				log = $("#userlogin").val();
+				
 			},
 			success: callback,
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -145,7 +146,13 @@ function postTable(intitule, public, duree, lieu, date,heure , nbPers) {
 }
 
 function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url) {
-	console.log("Date: " + date)
+	var currentdate = new Date();
+	var dateTab = date.split("/");
+	var year = dateTab[2];
+	var month = dateTab[1];
+	var day = dateTab[0];
+	var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
+	console.log("Date: " + localDate);
 	
 	$.ajax({
 		type : 'POST',
@@ -158,9 +165,9 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"public" : public,
 			"duree" : duree,
 			"lieu" : lieu,
-			"date" : date,
-			"heure" :heure,
-			"nbPers" : nbPers
+			"date" : localDate,
+			"nbPers" : nbPers,
+			"crea" : id
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
