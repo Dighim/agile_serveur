@@ -80,7 +80,9 @@ public class UserResource {
 	@GET
 	@Path("/{user}")
 	public UserDto getUserByNom(@PathParam("user") String user) {
-		return dao.findByName(user).convertToDto();				
+		User u= dao.findByName(user);
+		if(u==null)throw new WebApplicationException(Status.CONFLICT);
+		return u.convertToDto();
 	}
 
 	@DELETE
