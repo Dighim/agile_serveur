@@ -38,6 +38,7 @@ function login() {
 		});
 		$("#exit").off("click");
 		$("#exit").click(function() {
+            desc = false;
 			document.location.href="/";
 		});
 		//afficheUser(data);
@@ -206,11 +207,13 @@ function afficheListTables(data) {
 	$("#afficheTable").remove();
 	$("body").append(html);
 	$(".gotocreateTable").click(function (){
+        desc = false;
 		console.log("gotocreatetable");
 		$("body>div").hide();
 		$("#createTable").show();
 	});
 	$('.afficheTable').click(function(event){
+        desc = false;
 		var idT = event.target.id;
 		console.log(event.target.id);
 		$.getJSON("/v1/table/"+idT, function(data) {
@@ -245,5 +248,6 @@ function inscription(idUser, idTable){
 }
 
 function afficheTableDetails(table){
+     desc = false;
 	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.id+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
 }
