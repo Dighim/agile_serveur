@@ -82,6 +82,12 @@ public class TableResource {
 	}
     
     @PUT
+    @Path("{idTable}")
+	public void updateTable(TableDto dto, @PathParam("idTable") int id){
+    	dao.updateTable(id, dto.getIntitule(), dto.isPublique(), dto.getDuree(), dto.getLieu(), dto.getDate(), dto.getNbPers(), dto.getCrea(), dto.getEtat());
+    }
+    
+    @PUT
     @Path("{idTable}/etat/{etat}")
     public void setEtat(@PathParam("idTable") int idTable, @PathParam("etat") int etat) {
     	dao.updateState(etat, idTable);

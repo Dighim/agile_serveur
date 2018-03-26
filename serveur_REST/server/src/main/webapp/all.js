@@ -165,7 +165,8 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"lieu" : lieu,
 			"date" : localDate,
 			"nbPers" : nbPers,
-			"crea" : id
+			"crea" : id,
+            "etat" : -1
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
@@ -221,8 +222,17 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+etatStringify(table.etat)+"</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique) ? "Publique" : "Privée")+"</td>";
 	return tab;
+}
+
+function etatStringify(etat){
+    switch(etat){
+        case -1:return "En attente de jouer";
+        case 0:return "En cours";
+        case 1:return "Terminée";
+    }
+    return "Incorrect";
 }
 
 function inscription(idTable){
