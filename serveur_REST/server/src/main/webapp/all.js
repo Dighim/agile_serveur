@@ -251,7 +251,9 @@ function inscription(idTable){
 }
 
 function afficheTableDetails(table){
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("#afficheUneTable").remove();
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
 	});
@@ -284,6 +286,29 @@ function deleteTab(table){
 		return ""
 	}
 }
+
+function listerJoueurs(table){
+	var list;
+	$.ajax({
+		type : 'GET',
+		contentType : 'application/json',
+		url : "/v1/table/"+table.idTable+"/users",
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			list = "<ul>";
+			for(var i=0; i<data.length; i++){
+				console.log("user: "+data[i].pseudo);
+				list = list + "<li>" + data[i].pseudo + "</li>";
+			}
+			list = list + "</ul>";
+			$("#afficheListe").html(list);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("erreur");
+		}
+	});
+}
+
 function deleteTable(idTable){
 	console.log("idTable: "+idTable);
 	$.ajax({
