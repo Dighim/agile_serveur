@@ -36,11 +36,6 @@ $(document).ready(function() {
 		$("body>div").hide();
 		listTables();
 	});
-
-	$("#gotocreateTable").click(function (){
-		$("body>div").hide();
-		$("#createTable").show();
-	});
 	
 	$("#testins").click(function (){
 		

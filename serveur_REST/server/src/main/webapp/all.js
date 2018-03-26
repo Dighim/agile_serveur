@@ -55,7 +55,7 @@ function getWithAuthorizationHeader(url, callback) {
 			beforeSend : function(req) {
 				req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
 				log = $("#userlogin").val();
-				
+
 			},
 			success: callback,
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -112,14 +112,13 @@ function afficheUser(data) {
 	$("#reponse").html(userStringify(data));
 }
 
-function getUser(crea){
+function showCrea(crea, callback, idTable){
 	$.getJSON("v1/user/", function(data) {
 		for (index = 0; index < data.length; ++index) {
-		if(data[index].id == crea){ 
-			console.log(data[index].pseudo);
-			return data[index].pseudo;
+			if(data[index].id == crea){ 
+				callback(data[index].pseudo, idTable);
+			}
 		}
-	}
 	});
 }
 
@@ -152,7 +151,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 	var day = dateTab[0];
 	var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
 	console.log("Date: " + localDate);
-	
+	console.log("Nombre personnes :"+nbPers);
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
@@ -195,27 +194,32 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	var html = "<div><button id='gotocreateTable' class='btn btn-default'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
+	var html = "<div><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		html += "<tr>"+tableStringify(data[index])+"</tr>";
+		showCrea(data[index].crea, function(creaPseudo, idTable){
+			$('#user'+idTable).text(creaPseudo);
+		});
 	}
-	$('.afficheTable').click(function(){
-		var idT = this.id;
-		$.getJSON("/table/"+idT, function(data) {
-		afficheTableDetails(data)
-	});
-	});
-	$("#gotocreateTable").click(function (){
+	$("body").append(html);
+	$(".gotocreateTable").click(function (){
+		console.log("gotocreatetable");
 		$("body>div").hide();
 		$("#createTable").show();
 	});
-	$("body").append(html);
+	$('.afficheTable').click(function(event){
+		var idT = event.target.id;
+		console.log(event.target.id);
+		$.getJSON("/v1/table/"+idT, function(data) {
+			afficheTableDetails(data);
+		})
+	});
 }
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.id+">" + table.intitule + "</a></td><td>"+getUser(table.crea)+"</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>") + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+ "</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.id+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+((table.public==0) ? "public" : "prive")+"</td><td>0/" + table.nbPers+ "</td>";
 	return tab;
 }
 
@@ -239,5 +243,5 @@ function inscription(idUser, idTable){
 }
 
 function afficheTableDetails(table){
-	$(body).append("<div id='createTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button><table class='table table-bordered'><tr><td>"+table.intitule+"</td> <td><p style='text-align:center'>"+table.id+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>"+table.lieu+"</td> </tr> <tr> <td>"+table.date+"<br></td></tr> <tr><td>"+table.duree+"</td></tr><td>"+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.id+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
 }
