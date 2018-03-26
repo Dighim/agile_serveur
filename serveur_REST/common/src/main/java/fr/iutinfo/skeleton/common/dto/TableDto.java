@@ -6,8 +6,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.iutinfo.skeleton.api.LocalDateTimeAdapter;
-
 public class TableDto {
 	final static Logger logger = LoggerFactory.getLogger(TableDto.class);
 	private int idTable;

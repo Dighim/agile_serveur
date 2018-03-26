@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.iutinfo.skeleton.common.dto;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
