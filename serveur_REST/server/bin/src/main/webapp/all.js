@@ -117,7 +117,7 @@ function getUser(crea){
 		for (index = 0; index < data.length; ++index) {
 		if(data[index].id == crea){ 
 			console.log(data[index].pseudo);
-			return data[index].pseudo;
+			document.getElementById('createur').innerHTML = data[index].pseudo;
 		}
 	}
 	});
@@ -195,7 +195,7 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	var html = "<div><button id='gotocreateTable' class='btn btn-default'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
+	var html = "<div><button id='createTable' class='btn btn-default'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		html += "<tr>"+tableStringify(data[index])+"</tr>";
@@ -206,16 +206,12 @@ function afficheListTables(data) {
 		afficheTableDetails(data)
 	});
 	});
-	$("#gotocreateTable").click(function (){
-		$("body>div").hide();
-		$("#createTable").show();
-	});
 	$("body").append(html);
 }
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.id+">" + table.intitule + "</a></td><td>"+getUser(table.crea)+"</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>") + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+ "</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.id+">" + table.intitule + "</a></td><td id='createur'>"+getUser(table.crea)+"</td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date + "  </td><td> "+ table.lieu+"</td><td>{Etat}</td><td>0/" + table.nbPers+ "</td>";
 	return tab;
 }
 
