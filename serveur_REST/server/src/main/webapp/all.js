@@ -139,6 +139,44 @@ function userStringify(user) {
 	return user.id + ". " + user.pseudo + " &lt;" + " (" + user.user + ")";
 }
 
+function putTable(intitule, public, duree, lieu, date,heure , nbPers, callback) {
+	putTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, 'v1/table/', callback)
+}
+
+function putTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url, callback) {
+	var currentdate = new Date();
+	var dateTab = date.split("/");
+	var year = dateTab[2];
+	var month = dateTab[1];
+	var day = dateTab[0];
+	var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
+	console.log("Date: " + localDate);
+	console.log("Nombre personnes :"+nbPers);
+	$.ajax({
+		type : 'PUT',
+		contentType : 'application/json',
+		url : url,
+		dataType : "json",
+		data : JSON.stringify({
+			"id" : 0,
+			"intitule" : intitule,
+			"publique" : (public)?1:0,
+			"duree" : duree,
+			"lieu" : lieu,
+			"date" : localDate,
+			"nbPers" : nbPers,
+			"crea" : id
+		}),
+		success : function(data, textStatus, jqXHR) {
+			$("#createTable").hide();
+			callback();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			$("#reponse").text("La table "+intitule+ " existe déjà.");
+		}
+	});
+}
+
 function postTable(intitule, public, duree, lieu, date,heure , nbPers, callback) {
 	postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, 'v1/table/', callback)
 }
@@ -165,8 +203,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"lieu" : lieu,
 			"date" : localDate,
 			"nbPers" : nbPers,
-			"crea" : id,
-            "etat" : -1
+			"crea" : id
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
@@ -222,17 +259,8 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+etatStringify(table.etat)+"</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique) ? "Publique" : "Privée")+"</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
 	return tab;
-}
-
-function etatStringify(etat){
-    switch(etat){
-        case -1:return "En attente de jouer";
-        case 0:return "En cours";
-        case 1:return "Terminée";
-    }
-    return "Incorrect";
 }
 
 function inscription(idTable){
@@ -252,16 +280,20 @@ function inscription(idTable){
 
 function afficheTableDetails(table){
 	$("#afficheUneTable").remove();
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
 	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
 	});
 	$("#modification").click(function(){
 		$("body>div").hide();
+		afficheModifTable(table);
 	});
 	$("#deleteTab").click(function(){
 		deleteTable(table.idTable);
+	});
+	$("#fermer").click(function(){
+		$("#afficheUneTable").hide();
 	});
 }
 
@@ -322,5 +354,23 @@ function deleteTable(idTable){
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log("error delete table");
 		}
+	});
+}
+
+function afficheModifTable(table){
+	$("#createTable").remove();
+	$("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intitule' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieu' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='date' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heure' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='time' id='duree value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPers' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='public' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
+	$("#modifTab").click(function(){
+		putTable(
+			$("#intitule").val(),
+			$("#public").is(":checked"), 
+			$("#duree").val(),
+			$("#lieu").val(),
+			$("#date").val(),
+            $("#heure").val(),
+			$("#nbPers").val()
+		, function(){
+			listTables()
+		});
 	});
 }
