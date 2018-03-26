@@ -140,7 +140,7 @@ function userStringify(user) {
 }
 
 function postTable(intitule, public, duree, lieu, date,heure , nbPers, callback) {
-	postTableGeneric(intitule, "privé", duree, lieu, date, heure, nbPers, 'v1/table/', callback)
+	postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, 'v1/table/', callback)
 }
 
 function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url, callback) {
@@ -160,7 +160,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 		data : JSON.stringify({
 			"id" : 0,
 			"intitule" : intitule,
-			"public" : public,
+			"publique" : (public)?1:0,
 			"duree" : duree,
 			"lieu" : lieu,
 			"date" : localDate,
@@ -195,7 +195,7 @@ function afficheTable(data) {
 function afficheListTables(data) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
-	var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th></tr>";
+	var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th><th>Visibilité</th></tr>";
 	for (index = 0; index < data.length; ++index) {
 		console.log("Boucle "+index);
 		html += "<tr>"+tableStringify(data[index])+"</tr>";
@@ -221,7 +221,7 @@ function afficheListTables(data) {
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+((table.public==0) ? "public" : "prive")+"</td><td>0/" + table.nbPers+ "</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td>0/" + table.nbPers+ "</td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
 	return tab;
 }
 

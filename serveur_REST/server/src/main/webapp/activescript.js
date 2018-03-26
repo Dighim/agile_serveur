@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$("#addTable").click(function () {
 		postTable(
 			$("#intitule").val(),
-			$("#public").val(), 
+			$("#public").is(":checked"), 
 			$("#duree").val(),
 			$("#lieu").val(),
 			$("#date").val(),
