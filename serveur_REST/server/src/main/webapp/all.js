@@ -225,25 +225,24 @@ function tableStringify(table) {
 	return tab;
 }
 
-function inscription(idUser, idTable){
+function inscription(idTable){
+	console.log("idT; "+idTable);
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
-		url : "/table/"+idTable,
+		url : "/v1/table/"+idTable+"/ins/"+id,
 		dataType : "json",
-		data : JSON.stringify({
-			"idUser" : idUser,
-			"idTable" : idTable
-		}),
 		success : function(data, textStatus, jqXHR) {
-			//message succes
+			console.log("inscription succeed");
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			//message echec
-		}
+			console.log("inscription failed");		}
 	});
 }
 
 function afficheTableDetails(table){
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.id+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("#inscription").click(function(){
+		inscription(table.idTable);
+	});
 }

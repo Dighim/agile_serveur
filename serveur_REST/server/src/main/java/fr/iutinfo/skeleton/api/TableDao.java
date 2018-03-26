@@ -21,9 +21,9 @@ public interface TableDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<User> listUser(@Bind("idTable") int idTable);
 	
-	@SqlQuery("insert into inscriptions values(:idUser,:idTable)")
+	@SqlUpdate("insert into inscriptions values(:idUser,:idTable)")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    List<User> inscription(@Bind("idTable") int idTable,@Bind("idUser") int idUser);
+    void inscription(@Bind("idTable") int idTable,@Bind("idUser") int idUser);
 	
 	@SqlUpdate("insert into tables (intitule,publique,duree, lieu,date,nbPers,crea) values (:intitule, :publique, :duree, :lieu, :date, :nbPers, :crea)")
     @GetGeneratedKeys
