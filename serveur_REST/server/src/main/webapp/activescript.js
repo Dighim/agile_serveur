@@ -1,8 +1,4 @@
-$(document).ready(function() {
-	$("#get").click(function () {
-		getUser($('#user').val(), $('#alias').val());
-	});
-	$("#gotoins").click(function (){
+   	$("#gotoins").click(function (){
 		$("body>div").hide();
 		$("#ins").show();
 
@@ -42,4 +38,10 @@ $(document).ready(function() {
 	$("#testins").click(function (){
 		
 	});
-});
+
+    $("#gotoprof").click(function(){
+        console.log("progils1");
+        $("body>div").hide();
+		$("#connect").show();        
+        console.log("profils");
+    });

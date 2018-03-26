@@ -30,12 +30,12 @@ function login() {
 		document.getElementById('gotoins').id = 'gotoprof';
 		document.getElementById('gotoconnect').id = 'exit';
 		$("#gotoprof").off("click");
-		$("#gotoprof").click(function (){
+		/*$("#gotoprof").click(function (){
 			if(!desc) {
 				$('<div id="description"><div id="avatar"><img src="photoProfil.jpg" alt="Avatar"></div><div id="info">User: '+log+'<br>Pseudo: '+pseudo+'</div></div>').appendTo($("body"));
 				desc = true;
 			}
-		});
+		});*/
 		$("#exit").off("click");
 		$("#exit").click(function() {
 			document.location.href="/";
