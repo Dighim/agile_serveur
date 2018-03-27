@@ -273,9 +273,9 @@ function stateStringify(state){
 }
 
 function tableStringify(table) {
-    console.log(table);
-    var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><<td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
-    return tab;
+	console.log(table);
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+	return tab;
 }
 
 function getNbIns(table){
@@ -324,7 +324,9 @@ function inscription(idTable){
 
 function afficheTableDetails(table){
     $("#afficheUneTable").remove();
-    $("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td id='changeState'></td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+getFullDate(table.date.replace("T"," à ").replace(":00Z",""))+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+
+    $("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td id='changeState'></td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+getFullDate(table.date.replace("T"," à ").replace(":00Z",""))+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+    inscr(table);
     showProgressState(table);
     listerJoueurs(table);
     $("#inscription").click(function(){
@@ -451,6 +453,55 @@ function deleteTable(idTable){
             console.log("error delete table");
         }
     });
+}
+
+function inscr(table){    
+    $.ajax({
+		type : 'GET',
+		contentType : 'application/json',
+		url : "/v1/table/"+table.idTable+"/estIns/"+id,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+            $('#inscription').remove();
+            $('#desinscription').remove();
+            if(data!="1"){
+                $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
+                $("#inscription").click(function(){
+                    $('#afficheUneTable').remove();
+		            inscription(table.idTable);
+		            listTables();
+                   
+	            });
+            }
+            else{
+                $('#afficheUneTable').prepend("<br><br><button id='desinscription' class='btn btn-default'>Desinscription</button>");
+                $("#desinscription").click(function(){
+                    $('#afficheUneTable').remove();
+                    desinscription(table.idTable);
+		            listTables();
+                    
+                });
+            }
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("erreur");
+		}
+	});
+}
+
+function desinscription(idTable){
+    $.ajax({
+		type : 'DELETE',
+		contentType : 'application/json',
+		url : "/v1/table/"+idTable+"/desinscription/"+id,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			console.log("desinscription faite");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("error delete table");
+		}
+	});
 }
 
 function afficheModifTable(table){
