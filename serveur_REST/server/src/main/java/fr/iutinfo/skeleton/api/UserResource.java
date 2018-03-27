@@ -64,6 +64,13 @@ public class UserResource {
 		List <Table> tables = dao.listTable(id);		
 		return tables.stream().map(Table::convertToDto).collect(Collectors.toList());
 	}
+	
+	@GET
+	@Path("/id/{pseudo}")
+	public int findByPseudo(@PathParam("pseudo") String pseudo) {
+		User user = dao.findByPseudo(pseudo);
+		return user.getId();
+	}
 
 	@GET
 	public List<UserDto> getAllUsers(@QueryParam("q") String query) {
