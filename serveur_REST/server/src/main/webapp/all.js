@@ -344,6 +344,9 @@ function afficheTableDetails(table){
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
+	if(table.etat == 1){
+		$("#inscription").remove();
+	}
 }
 
 function showProgressState(table){
@@ -391,9 +394,9 @@ function changeState(tableState, idTable){
 }
 
 function modif(table){
-    console.log(table.crea);
+    console.log(table.etat);
     console.log(id);
-    if(table.crea==id){
+    if(table.crea==id && table.etat != 1){
         return "<button id='modification' class='btn btn-default'> Modifier </button>";
     }
     else{
