@@ -208,7 +208,8 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"lieu" : lieu,
 			"date" : localDate,
 			"nbPers" : nbPers,
-			"crea" : id
+			"crea" : id,
+            "etat" : -1
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
@@ -263,9 +264,18 @@ function afficheListTables(data) {
 	});
 }
 
+function stateStringify(state){
+    switch(state){
+        case -1:return "En attente de jouer";
+        case 0:return "En cours";
+        case 1:return "Terminée";
+    }
+    return "Incorrecte";
+}
+
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>En cours</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>{Type}</td><td>{Jeu}</td><td>" + table.duree + "  </td><td>" + table.date.replace("T","</td><td>").replace(":00Z","") + "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
 	return tab;
 }
 
@@ -306,7 +316,12 @@ function inscription(idTable){
 
 function afficheTableDetails(table){
 	$("#afficheUneTable").remove();
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><p style='text-align:center'>Id: "+table.idTable+"</p> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><a href='#' style='text-align:center' id='changeState'></a> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+    showProgressState(table);
+    $('#changeState').click(function(e){
+        changeState(table.etat, table.idTable);
+        showProgressState(table);
+    })
 	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
@@ -324,6 +339,34 @@ function afficheTableDetails(table){
 	});
 	$("#fermer").click(function(){
 		$("#afficheUneTable").hide();
+	});
+}
+
+function showProgressState(table){
+    switch(table.etat){
+        case -1:
+            $('#changeState').text("Lancer la partie");
+            break;
+        case 0:
+            $('#changeState').text("Terminer la partie");
+            break;
+    }
+}
+
+function changeState(tableState, idTable){
+    var newState = (tableState+1 == 2)?2:tableState+1;
+    $.ajax({
+		type : 'PUT',
+		contentType : 'application/json',
+		url : "/v1/table/"+idTable+"/etat/"+newState,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+            listTables();
+            afficheTableDetails(table);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			console.log("erreur");
+		}
 	});
 }
 
