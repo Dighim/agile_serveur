@@ -342,6 +342,9 @@ function afficheTableDetails(table){
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
+	if(table.etat == 1){
+		$("#inscription").remove();
+	}
 }
 
 function showProgressState(table){
