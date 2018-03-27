@@ -236,70 +236,70 @@ function afficheTable(data) {
 }
 
 function afficheListTables(data) {
-	console.log("AfficheListTables length:"+ data.length);
-	var index = 0;
-	var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th><th>Visibilité</th></tr>";
-	for (index = 0; index < data.length; ++index) {
-		console.log("Boucle "+index);
-		html += "<tr>"+tableStringify(data[index])+"</tr>";
-		showCrea(data[index].crea, function(creaPseudo, idTable){
-			$('#user'+idTable).text(creaPseudo);
-		}, data[index].idTable);
-		getNbIns(data[index]);
-	}
-	$("#afficheTable").remove();
-	$("body").append(html);
-	$(".gotocreateTable").click(function (){
-		console.log("gotocreatetable");
-		$("body>div").hide();
-		$("#createTable").show();
-	});
-	$('.afficheTable').click(function(event){
-		var idT = event.target.id;
-		console.log(event.target.id);
-		$.getJSON("/v1/table/"+idT, function(data) {
-			afficheTableDetails(data);
-		})
-	});
+    console.log("AfficheListTables length:"+ data.length);
+    var index = 0;
+    var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th><th>Visibilité</th></tr>";
+    for (index = 0; index < data.length; ++index) {
+        console.log("Boucle "+index);
+        html += "<tr>"+tableStringify(data[index])+"</tr>";
+        showCrea(data[index].crea, function(creaPseudo, idTable){
+            $('#user'+idTable).text(creaPseudo);
+        }, data[index].idTable);
+        getNbIns(data[index]);
+    }
+    $("#afficheTable").remove();
+    $("body").append(html);
+    $(".gotocreateTable").click(function (){
+        console.log("gotocreatetable");
+        $("body>div").hide();
+        $("#createTable").show();
+    });
+    $('.afficheTable').click(function(event){
+        var idT = event.target.id;
+        console.log(event.target.id);
+        $.getJSON("/v1/table/"+idT, function(data) {
+            afficheTableDetails(data);
+        })
+    });
 }
 
 function stateStringify(state){
-	switch(state){
-		case -1:return "En attente de jouer";
-		case 0:return "En cours";
-		case 1:return "Terminée";
-	}
-	return "Incorrecte";
+    switch(state){
+        case -1:return "En attente de jouer";
+        case 0:return "En cours";
+        case 1:return "Terminée";
+    }
+    return "Incorrecte";
 }
 
 function tableStringify(table) {
-	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><<td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
-	return tab;
+    console.log(table);
+    var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><<td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+    return tab;
 }
 
 function getNbIns(table){
-	$.ajax({
-		type : 'GET',
-		contentType : 'application/json',
-		url : "/v1/table/"+table.idTable+"/ins",
-		dataType : "json",
-		success : function(data, textStatus, jqXHR) {
-			if(data == table.nbPers){
-				$('#nbIns'+table.idTable).css("background-color","red");
-			}
-			else if(data > (table.nbPers/2)){
-				$('#nbIns'+table.idTable).css("background-color","orange");
-			}
-			else{
-				$('#nbIns'+table.idTable).css("background-color","green");
-			}
-			$('#nbIns'+table.idTable).text(data+"/"+ table.nbPers);
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("erreur");
-		}
-	});
+    $.ajax({
+        type : 'GET',
+        contentType : 'application/json',
+        url : "/v1/table/"+table.idTable+"/ins",
+        dataType : "json",
+        success : function(data, textStatus, jqXHR) {
+            if(data == table.nbPers){
+                $('#nbIns'+table.idTable).css("background-color","red");
+            }
+            else if(data > (table.nbPers/2)){
+                $('#nbIns'+table.idTable).css("background-color","orange");
+            }
+            else{
+                $('#nbIns'+table.idTable).css("background-color","green");
+            }
+            $('#nbIns'+table.idTable).text(data+"/"+ table.nbPers);
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+            console.log("erreur");
+        }
+    });
 }
 
 
@@ -328,25 +328,25 @@ function afficheTableDetails(table){
     showProgressState(table);
     listerJoueurs(table);
     $("#inscription").click(function(){
-		inscription(table.idTable);
-		$("#afficheUneTable").remove();
-		listTables();
-	});
+        inscription(table.idTable);
+        $("#afficheUneTable").remove();
+        listTables();
+    });
     $("#modification").click(function(){
         $("body>div").hide();
         afficheModifTable(table);
     });
     $("#deleteTab").click(function(){
-		deleteTable(table.idTable);
-		$("#afficheUneTable").remove();
-		listTables();
-	});
+        deleteTable(table.idTable);
+        $("#afficheUneTable").remove();
+        listTables();
+    });
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
-	if(table.etat == 1){
-		$("#inscription").remove();
-	}
+    if(table.etat == 1){
+        $("#inscription").remove();
+    }
 }
 
 function showProgressState(table){
@@ -458,20 +458,30 @@ function afficheModifTable(table){
     $("#modifTable").remove();
     $("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intituleM' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieuM' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='dateM' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heureM' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='text' id='dureeM' value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPersM' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='publicM' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
     $("#modifTab").click(function(){
-        console.log("Lieu: "+ $("#lieu"));
-        putTable(
-            table.idTable,
-            $("#intituleM").val(),
-            $("#publicM").is(":checked"), 
-            $("#dureeM").val(),
-			$("#lieuM").val(),
-            $("#dateM").val(),
-            $("#heureM").val(),
-            $("#nbPersM").val(),
-            table.etat
-            , function(){
-                listTables();
-            });
+        var allFilled = true;
+        var select = '#modifTable input';
+        var defaultBorder = $('#intitule').css("border");
+        $(select).each(function(index, data){
+            if($(this).val() == "") {
+                $(this).css('border', 'solid 3px #cc0000');
+                allFilled = false;
+            }else $(this).css('border', defaultBorder);
+        });
+        if(allFilled){
+            putTable(
+                table.idTable,
+                $("#intituleM").val(),
+                $("#publicM").is(":checked"), 
+                $("#dureeM").val(),
+                $("#lieuM").val(),
+                $("#dateM").val(),
+                $("#heureM").val(),
+                $("#nbPersM").val(),
+                table.etat
+                , function(){
+                    listTables();
+                });
+        }
     });
 }
 
