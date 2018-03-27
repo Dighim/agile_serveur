@@ -209,7 +209,7 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 			"date" : localDate,
 			"nbPers" : nbPers,
 			"crea" : id,
-            "etat" : -1
+			"etat" : -1
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
@@ -246,7 +246,7 @@ function afficheListTables(data) {
 		showCrea(data[index].crea, function(creaPseudo, idTable){
 			$('#user'+idTable).text(creaPseudo);
 		}, data[index].idTable);
-        getNbIns(data[index]);
+		getNbIns(data[index]);
 	}
 	$("#afficheTable").remove();
 	$("body").append(html);
@@ -265,12 +265,12 @@ function afficheListTables(data) {
 }
 
 function stateStringify(state){
-    switch(state){
-        case -1:return "En attente de jouer";
-        case 0:return "En cours";
-        case 1:return "Terminée";
-    }
-    return "Incorrecte";
+	switch(state){
+		case -1:return "En attente de jouer";
+		case 0:return "En cours";
+		case 1:return "Terminée";
+	}
+	return "Incorrecte";
 }
 
 function tableStringify(table) {
@@ -286,6 +286,15 @@ function getNbIns(table){
 		url : "/v1/table/"+table.idTable+"/ins",
 		dataType : "json",
 		success : function(data, textStatus, jqXHR) {
+			if(data == table.nbPers){
+				$('#nbIns'+table.idTable).css("background-color","red");
+			}
+			else if(data > (table.nbPers/2)){
+				$('#nbIns'+table.idTable).css("background-color","orange");
+			}
+			else{
+				$('#nbIns'+table.idTable).css("background-color","green");
+			}
 			$('#nbIns'+table.idTable).text(data+"/"+ table.nbPers);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -296,32 +305,32 @@ function getNbIns(table){
 
 
 function inscription(idTable){
-    var dif=$("#nbIns"+idTable).text();
-    var s=dif.split("/",2);
-    if(s[0]!=s[1]){
-	console.log("idT; "+idTable);
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : "/v1/table/"+idTable+"/ins/"+id,
-		dataType : "json",
-		success : function(data, textStatus, jqXHR) {
-			console.log("inscription succeed");
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("inscription failed");		}
-	});
-    }
+	var dif=$("#nbIns"+idTable).text();
+	var s=dif.split("/",2);
+	if(s[0]!=s[1]){
+		console.log("idT; "+idTable);
+		$.ajax({
+			type : 'POST',
+			contentType : 'application/json',
+			url : "/v1/table/"+idTable+"/ins/"+id,
+			dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				console.log("inscription succeed");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log("inscription failed");		}
+		});
+	}
 }
 
 function afficheTableDetails(table){
 	$("#afficheUneTable").remove();
 	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><a href='#' style='text-align:center' id='changeState'></a> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
-    showProgressState(table);
-    $('#changeState').click(function(e){
-        changeState(table.etat, table.idTable);
-        showProgressState(table);
-    })
+	showProgressState(table);
+	$('#changeState').click(function(e){
+		changeState(table.etat, table.idTable);
+		showProgressState(table);
+	})
 	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
@@ -343,26 +352,26 @@ function afficheTableDetails(table){
 }
 
 function showProgressState(table){
-    switch(table.etat){
-        case -1:
-            $('#changeState').text("Lancer la partie");
-            break;
-        case 0:
-            $('#changeState').text("Terminer la partie");
-            break;
-    }
+	switch(table.etat){
+		case -1:
+			$('#changeState').text("Lancer la partie");
+			break;
+		case 0:
+			$('#changeState').text("Terminer la partie");
+			break;
+	}
 }
 
 function changeState(tableState, idTable){
-    var newState = (tableState+1 == 2)?2:tableState+1;
-    $.ajax({
+	var newState = (tableState+1 == 2)?2:tableState+1;
+	$.ajax({
 		type : 'PUT',
 		contentType : 'application/json',
 		url : "/v1/table/"+idTable+"/etat/"+newState,
 		dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-            listTables();
-            afficheTableDetails(table);
+			listTables();
+			afficheTableDetails(table);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log("erreur");
