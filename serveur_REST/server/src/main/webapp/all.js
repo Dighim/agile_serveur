@@ -274,7 +274,7 @@ function stateStringify(state){
 
 function tableStringify(table) {
 	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><<td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
 	return tab;
 }
 
