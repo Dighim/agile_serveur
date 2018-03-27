@@ -11,7 +11,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface TableDao {
-	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree double,lieu varchar(100),date varchar,nbPers integer,crea integer, etat integer)")
+	@SqlUpdate("create table tables (idTable integer primary key autoincrement,intitule varchar(1000),publique boolean,duree varchar(5),lieu varchar(100),date varchar,nbPers integer,crea integer, etat integer)")
     void createBaseTable();
 	
 	@SqlUpdate("create table inscriptions (idUser integer not null references users(id),idTable integer not null references tables(idTable), primary key (idUser, idTable))")
@@ -51,7 +51,7 @@ public interface TableDao {
 	void updateState(@Bind("etat") int etat, @Bind("idTable") int idTable);
 	
 	@SqlUpdate("update tables set intitule=:intitule, publique=:publique, duree=:duree, lieu=:lieu, date=:date, nbPers=:nbPers, crea=:crea, etat=:etat where idTable=:idTable")
-	void updateTable(@Bind("idTable") int idTable, @Bind("intitule") String intitule, @Bind("publique") boolean publique,@Bind("duree") double duree, @Bind("lieu") String lieu, @Bind("date") String date, @Bind("nbPers") int nbPers, @Bind("crea") int crea, @Bind("etat") int etat);
+	void updateTable(@Bind("idTable") int idTable, @Bind("intitule") String intitule, @Bind("publique") boolean publique,@Bind("duree") String duree, @Bind("lieu") String lieu, @Bind("date") String date, @Bind("nbPers") int nbPers, @Bind("crea") int crea, @Bind("etat") int etat);
 	
 	@SqlQuery("select * from tables order by idTable")
     @RegisterMapperFactory(BeanMapperFactory.class)
