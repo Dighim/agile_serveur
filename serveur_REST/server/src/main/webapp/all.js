@@ -320,8 +320,9 @@ function inscription(idTable){
 function afficheTableDetails(table){
     $("#afficheUneTable").remove();
 
-    $("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td id='changeState'></td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+getFullDate(table.date.replace("T"," à ").replace(":00Z",""))+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
+    $("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'>"+invite(table)+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td id='changeState'></td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+getFullDate(table.date.replace("T"," à ").replace(":00Z",""))+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td></tr></table></div>");
     inscr(table);
+    invite(table);
     showProgressState(table);
     listerJoueurs(table);
     $("#inscription").click(function(){
@@ -341,9 +342,46 @@ function afficheTableDetails(table){
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
-	if(table.etat == 1){
-		$("#inscription").remove();
-	}
+    $("#invitation").click(function(){
+        gererInvit(table);
+    });
+    if(table.etat == 1){
+        $("#inscription").remove();
+    }
+}
+
+function gererInvit(table){
+    $("#afficheUneTable").remove();
+    $("body").append("<input type='text' id='pseudoInvit'><button id=lancerInvit>Inviter</button>");
+
+    $("#lancerInvit").click(function(){
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: "/v1/user/id/"+$('#pseudoInvit').val(),
+            dataType : "json",
+            success : function(data, textStatus, jqXHR) {
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json',
+                    url: "/v1/table/"+table.idTable+"/ins/"+data,
+                    dataType : "json",
+                    success : function(data2, textStatus, jqXHR) { 
+                        listTables();
+                        afficheTableDetails(table);
+                    },
+                    error : function(jqXHR, textStatus, errorThrown) {
+                        console.log("erreur");
+                    }
+                });
+                //listTables();
+                //afficheTableDetails(table);
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                console.log("erreur");
+            }
+        });
+    })
 }
 
 function showProgressState(table){
@@ -486,6 +524,47 @@ function inscr(table){
             }
         });
     }
+}
+
+function invite(table){ 
+    if(table.etat != 1 && table.crea == id){
+
+        return "<button id='invitation' class='btn btn-default'>Inviter</button>";
+        /*$.ajax({
+            type : 'GET',
+            contentType : 'application/json',
+            url : "/v1/table/"+table.idTable+"/estIns/"+id,
+            dataType : "json",
+            success : function(data, textStatus, jqXHR) {
+                $('#inscription').remove();
+                $('#desinscription').remove();
+                if(data!="1"){
+                    if(table.publique==1){
+                        $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
+                        $("#inscription").click(function(){
+                            $('#afficheUneTable').remove();
+                            inscription(table.idTable);
+                            listTables();
+
+                        });
+                    }
+                }
+                else{
+                    $('#afficheUneTable').prepend("<br><br><button id='desinscription' class='btn btn-default'>Desinscription</button>");
+                    $("#desinscription").click(function(){
+                        $('#afficheUneTable').remove();
+                        desinscription(table.idTable);
+                        listTables();
+
+                    });
+                }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                console.log("erreur");
+            }
+        });*/
+    }
+    return "";
 }
 
 function desinscription(idTable){
