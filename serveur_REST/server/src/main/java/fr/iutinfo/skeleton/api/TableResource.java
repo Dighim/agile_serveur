@@ -39,7 +39,7 @@ public class TableResource {
 			logger.debug("Create table table de jeux");
 			dao.createBaseTable();
 			Table t= new Table();
-			t.setDuree(1);
+			t.setDuree("1");
 			t.setIdTable(0);
 			t.setIntitule("solitaire");
 			t.setLieu("ici");
@@ -55,6 +55,14 @@ public class TableResource {
 		}
 		
 	}
+    
+    @GET
+    @Path("/{idTable}/ins")
+    public String getNbIns(@PathParam("idTable") int idTable){
+    	String ins=dao.getNbIns(idTable);
+		return ins;
+    }
+    
     
     @GET
     @Path("/{idTable}/users")

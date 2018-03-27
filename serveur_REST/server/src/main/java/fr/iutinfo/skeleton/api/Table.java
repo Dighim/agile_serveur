@@ -11,7 +11,7 @@ public class Table{
 	private int idTable;
 	private String intitule;
 	private boolean publique;
-	private double duree;
+	private String duree;
 	private String lieu;
 	private String date;
 	private int nbPers;
@@ -49,11 +49,11 @@ public class Table{
         this.setCrea(dto.getCrea());
     }
 	
-	public double getDuree() {
+	public String getDuree() {
 		return duree;
 	}
 
-	public void setDuree(double duree) {
+	public void setDuree(String duree) {
 		this.duree = duree;
 	}
 
