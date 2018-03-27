@@ -461,13 +461,15 @@ function inscr(table){
                 $('#inscription').remove();
                 $('#desinscription').remove();
                 if(data!="1"){
-                    $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
-                    $("#inscription").click(function(){
-                        $('#afficheUneTable').remove();
-                        inscription(table.idTable);
-                        listTables();
+                    if(table.publique==1){
+                        $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
+                        $("#inscription").click(function(){
+                            $('#afficheUneTable').remove();
+                            inscription(table.idTable);
+                            listTables();
 
-                    });
+                        });
+                    }
                 }
                 else{
                     $('#afficheUneTable').prepend("<br><br><button id='desinscription' class='btn btn-default'>Desinscription</button>");
