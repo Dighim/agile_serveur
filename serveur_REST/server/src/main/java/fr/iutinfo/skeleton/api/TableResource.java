@@ -39,7 +39,7 @@ public class TableResource {
 			logger.debug("Create table table de jeux");
 			dao.createBaseTable();
 			Table t= new Table();
-			t.setDuree(1);
+			t.setDuree("1");
 			t.setIdTable(0);
 			t.setIntitule("solitaire");
 			t.setLieu("ici");
