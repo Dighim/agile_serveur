@@ -542,5 +542,5 @@ function getFullDate(dateHeure) {
     var d = new Date(dateTab[0], dateTab[1]-1, dateTab[2]);
     var jours = new Array( "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" );
     var mois = new Array( "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet","Aout","Septembre","Octobre","Novembre","Decembre");
-    return jours[d.getDay() - 1]+" "+d.getDate()+" "+mois[d.getMonth()]+" "+d.getFullYear()+heure;
+    return jours[d.getDay() - 1]+" "+d.getDate()+" "+mois[d.getMonth()]+" "+d.getFullYear()+heure.split(".")[0];
 }
