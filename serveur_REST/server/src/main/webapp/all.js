@@ -187,40 +187,6 @@ function postTable(intitule, public, duree, lieu, date,heure , nbPers, callback)
 }
 
 function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, url, callback) {
-<<<<<<< HEAD
-	var currentdate = new Date();
-	var dateTab = date.split("/");
-	var year = dateTab[2];
-	var month = dateTab[1];
-	var day = dateTab[0];
-	var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
-	console.log("Date: " + localDate);
-	console.log("Nombre personnes :"+nbPers);
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : url,
-		dataType : "json",
-		data : JSON.stringify({
-			"id" : 0,
-			"intitule" : intitule,
-			"publique" : (public)?1:0,
-			"duree" : duree,
-			"lieu" : lieu,
-			"date" : localDate,
-			"nbPers" : nbPers,
-			"crea" : id,
-			"etat" : -1
-		}),
-		success : function(data, textStatus, jqXHR) {
-			$("#createTable").hide();
-			callback();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			$("#reponse").text("La table "+intitule+ " existe déjà.");
-		}
-	});
-=======
     var currentdate = new Date();
     var dateTab = date.split("/");
     var year = dateTab[2];
@@ -252,7 +218,6 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
             $("#reponse").text("La table "+intitule+ " existe déjà.");
         }
     });
->>>>>>> 353742ccac925432b70fc00e21dc48d6e422b2c2
 }
 
 function listTables() {
@@ -314,7 +279,6 @@ function tableStringify(table) {
 }
 
 function getNbIns(table){
-<<<<<<< HEAD
 	$.ajax({
 		type : 'GET',
 		contentType : 'application/json',
@@ -336,54 +300,10 @@ function getNbIns(table){
 			console.log("erreur");
 		}
 	});
-=======
-    $.ajax({
-        type : 'GET',
-        contentType : 'application/json',
-        url : "/v1/table/"+table.idTable+"/ins",
-        dataType : "json",
-        success : function(data, textStatus, jqXHR) {
-            $('#nbIns'+table.idTable).text(data+"/"+ table.nbPers);
-        },
-        error : function(jqXHR, textStatus, errorThrown) {
-            console.log("erreur");
-        }
-    });
->>>>>>> 353742ccac925432b70fc00e21dc48d6e422b2c2
 }
 
 
 function inscription(idTable){
-<<<<<<< HEAD
-	var dif=$("#nbIns"+idTable).text();
-	var s=dif.split("/",2);
-	if(s[0]!=s[1]){
-		console.log("idT; "+idTable);
-		$.ajax({
-			type : 'POST',
-			contentType : 'application/json',
-			url : "/v1/table/"+idTable+"/ins/"+id,
-			dataType : "json",
-			success : function(data, textStatus, jqXHR) {
-				console.log("inscription succeed");
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log("inscription failed");		}
-		});
-	}
-}
-
-function afficheTableDetails(table){
-	$("#afficheUneTable").remove();
-	$("body").append("<div id='afficheUneTable' class='jumbotron p-3 p-md-5 text-white bg-dark'><br><br><div><button id='inscription' class='btn btn-default'>S'inscrire</button>"+modif(table)+deleteTab(table)+"<button id='fermer' class='btn btn-default'>Fermer</button><table class='table table-bordered'><tr><td>Intitule: "+table.intitule+"</td> <td><a href='#' style='text-align:center' id='changeState'></a> </td></tr> <tr> <td rowspan='5' style='vertical-align:middle'><center id='afficheListe'></center></td><td>Lieu: "+table.lieu+"</td> </tr> <tr> <td>Date: "+table.date.replace("T"," à ").replace(":00Z","")+"<br></td></tr> <tr><td>Durée: "+table.duree+"</td></tr><td>Joueurs max: "+table.nbPers+"<br></td><tr><td>"+((table.public==0) ? "public" : "prive")+"</td></tr></table></div>");
-	showProgressState(table);
-	$('#changeState').click(function(e){
-		changeState(table.etat, table.idTable);
-		showProgressState(table);
-	})
-	listerJoueurs(table);
-	$("#inscription").click(function(){
-=======
     var dif=$("#nbIns"+idTable).text();
     var s=dif.split("/",2);
     if(s[0]!=s[1]){
@@ -408,7 +328,6 @@ function afficheTableDetails(table){
     showProgressState(table);
     listerJoueurs(table);
     $("#inscription").click(function(){
->>>>>>> 353742ccac925432b70fc00e21dc48d6e422b2c2
 		inscription(table.idTable);
 		$("#afficheUneTable").remove();
 		listTables();
@@ -428,33 +347,6 @@ function afficheTableDetails(table){
 }
 
 function showProgressState(table){
-<<<<<<< HEAD
-	switch(table.etat){
-		case -1:
-			$('#changeState').text("Lancer la partie");
-			break;
-		case 0:
-			$('#changeState').text("Terminer la partie");
-			break;
-	}
-}
-
-function changeState(tableState, idTable){
-	var newState = (tableState+1 == 2)?2:tableState+1;
-	$.ajax({
-		type : 'PUT',
-		contentType : 'application/json',
-		url : "/v1/table/"+idTable+"/etat/"+newState,
-		dataType : "json",
-		success : function(data, textStatus, jqXHR) {
-			listTables();
-			afficheTableDetails(table);
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("erreur");
-		}
-	});
-=======
     $('#changeState').html("");
     if(id == table.crea){
         switch(table.etat){
@@ -496,7 +388,6 @@ function changeState(tableState, idTable){
             console.log("erreur");
         }
     });
->>>>>>> 353742ccac925432b70fc00e21dc48d6e422b2c2
 }
 
 function modif(table){
