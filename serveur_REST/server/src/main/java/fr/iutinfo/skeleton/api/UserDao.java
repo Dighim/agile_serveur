@@ -13,7 +13,12 @@ public interface UserDao {
     @SqlUpdate("insert into users (user,pseudo,passwdHash, salt) values (:user, :pseudo, :passwdHash, :salt)")
     @GetGeneratedKeys
     int insert(@BindBean() User user);
-
+    
+    
+    @SqlQuery("select * from users where pseudo = :pseudo")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    User findByPseudo(@Bind("pseudo") String pseudo);
+    
     @SqlQuery("select * from users where user = :user")
     @RegisterMapperFactory(BeanMapperFactory.class)
     User findByName(@Bind("user") String user);
