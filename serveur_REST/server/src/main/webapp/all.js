@@ -319,15 +319,19 @@ function afficheTableDetails(table){
     showProgressState(table);
     listerJoueurs(table);
     $("#inscription").click(function(){
-        inscription(table.idTable);
-    });
+		inscription(table.idTable);
+		$("#afficheUneTable").remove();
+		listTables();
+	});
     $("#modification").click(function(){
         $("body>div").hide();
         afficheModifTable(table);
     });
     $("#deleteTab").click(function(){
-        deleteTable(table.idTable);
-    });
+		deleteTable(table.idTable);
+		$("#afficheUneTable").remove();
+		listTables();
+	});
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
