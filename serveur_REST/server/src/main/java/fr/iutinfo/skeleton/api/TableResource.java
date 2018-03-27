@@ -63,6 +63,11 @@ public class TableResource {
 		return ins;
     }
     
+    @GET
+    @Path("/{idTable}/estIns/{idUser}")
+    public String estIns(@PathParam("idTable") int idTable, @PathParam("idUser") int idUser) {
+    	return dao.estIns(idTable,idUser);
+    }
     
     @GET
     @Path("/{idTable}/users")
@@ -128,5 +133,10 @@ public class TableResource {
 	public void deleteTable(@PathParam("id") int id) {
 		dao.delete(id);
 	}
-
+	
+	@DELETE
+	@Path("/{idTable}/desinscription/{idJoueur}")
+	public void desinscription(@PathParam("idTable") int idTable, @PathParam("idJoueur") int idJoueur) {
+		dao.desins(idTable, idJoueur);
+	}
 }

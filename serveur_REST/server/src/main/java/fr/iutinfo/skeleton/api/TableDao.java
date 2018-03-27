@@ -33,6 +33,10 @@ public interface TableDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     String getNbIns(@Bind("id") int id);
 	
+	@SqlQuery("select count(*) from inscriptions where idTable=:idTable and idUser=:idUser")
+	@RegisterMapperFactory(BeanMapperFactory.class)
+    String estIns(@Bind("idTable") int idTable,@Bind("idUser") int idUser);
+	
 	@SqlQuery("select * from tables where intitule = :intitule")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Table findByTableName(@Bind("intitule") String intitule);
@@ -46,6 +50,9 @@ public interface TableDao {
 	
 	@SqlUpdate("delete from tables where idTable = :id")
     void delete(@Bind("id") int id);
+	
+	@SqlUpdate("delete from inscriptions where idTable = :idTable and idUser = :idUser")
+    void desins(@Bind("idTable") int idTable, @Bind("idUser") int idUser);
 	
 	@SqlUpdate("update tables set etat=:etat where idTable=:idTable")
 	void updateState(@Bind("etat") int etat, @Bind("idTable") int idTable);
