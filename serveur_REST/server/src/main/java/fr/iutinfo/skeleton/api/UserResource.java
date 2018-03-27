@@ -67,9 +67,9 @@ public class UserResource {
 	
 	@GET
 	@Path("/id/{pseudo}")
-	public int findByPseudo(@PathParam("pseudo") String pseudo) {
+	public String findByPseudo(@PathParam("pseudo") String pseudo) {
 		User user = dao.findByPseudo(pseudo);
-		return user.getId();
+		return user.getId()+"";
 	}
 
 	@GET
