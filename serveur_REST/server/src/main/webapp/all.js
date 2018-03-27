@@ -310,6 +310,8 @@ function afficheTableDetails(table){
 	listerJoueurs(table);
 	$("#inscription").click(function(){
 		inscription(table.idTable);
+		$("#afficheUneTable").remove();
+		listTables();
 	});
 	$("#modification").click(function(){
 		$("body>div").hide();
@@ -317,6 +319,8 @@ function afficheTableDetails(table){
 	});
 	$("#deleteTab").click(function(){
 		deleteTable(table.idTable);
+		$("#afficheUneTable").remove();
+		listTables();
 	});
 	$("#fermer").click(function(){
 		$("#afficheUneTable").hide();
