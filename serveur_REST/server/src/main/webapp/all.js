@@ -207,7 +207,9 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 		}),
 		success : function(data, textStatus, jqXHR) {
 			$("#createTable").hide();
+            inscription(data.idTable);
 			callback();
+            
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			$("#reponse").text("La table "+intitule+ " existe déjà.");
