@@ -148,12 +148,7 @@ function putTable(idT, intitule, public, duree, lieu, date,heure , nbPers, etat,
 }
 
 function putTableGeneric(idT, intitule, public, duree, lieu, date, heure, nbPers, etat, callback) {
-    var currentdate = new Date();
-    var dateTab = date.split("/");
-    var year = dateTab[0];
-    var month = dateTab[1];
-    var day = dateTab[2];
-    var localDate = year+'-'+month+'-'+day+"T"+ heure + ":00Z";
+    var localDate = date+"T"+ heure + ":00Z";
     console.log("Date: " + localDate);
     console.log("Nombre personnes :"+nbPers);
     $.ajax({
@@ -273,9 +268,9 @@ function stateStringify(state){
 }
 
 function tableStringify(table) {
-	console.log(table);
-	var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
-	return tab;
+    console.log(table);
+    var tab ="<td><a href=# class='afficheTable' id="+table.idTable+">" + table.intitule + "</a></td><td id=user"+table.idTable+"></td><td>/</td><td>/</td><td>" + table.duree + "  </td><td>" +getFullDate(table.date.replace("T","</td><td>").replace(":00Z",""))+ "  </td><td> "+ table.lieu+"</td><td>"+stateStringify(table.etat)+"</td><td id='nbIns"+table.idTable+"'></td><td>"+((table.publique==1) ? "Publique" : "Privée")+"</td>";
+    return tab;
 }
 
 function getNbIns(table){
@@ -346,9 +341,6 @@ function afficheTableDetails(table){
     $("#fermer").click(function(){
         $("#afficheUneTable").hide();
     });
-    if(table.etat == 1){
-        $("#inscription").remove();
-    }
 }
 
 function showProgressState(table){
@@ -455,53 +447,55 @@ function deleteTable(idTable){
     });
 }
 
-function inscr(table){    
-    $.ajax({
-		type : 'GET',
-		contentType : 'application/json',
-		url : "/v1/table/"+table.idTable+"/estIns/"+id,
-		dataType : "json",
-		success : function(data, textStatus, jqXHR) {
-            $('#inscription').remove();
-            $('#desinscription').remove();
-            if(data!="1"){
-                $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
-                $("#inscription").click(function(){
-                    $('#afficheUneTable').remove();
-		            inscription(table.idTable);
-		            listTables();
-                   
-	            });
+function inscr(table){ 
+    if(table.etat != 1){
+        $.ajax({
+            type : 'GET',
+            contentType : 'application/json',
+            url : "/v1/table/"+table.idTable+"/estIns/"+id,
+            dataType : "json",
+            success : function(data, textStatus, jqXHR) {
+                $('#inscription').remove();
+                $('#desinscription').remove();
+                if(data!="1"){
+                    $('#afficheUneTable').prepend("<br><br><button id='inscription' class='btn btn-default'>S'inscrire</button>");
+                    $("#inscription").click(function(){
+                        $('#afficheUneTable').remove();
+                        inscription(table.idTable);
+                        listTables();
+
+                    });
+                }
+                else{
+                    $('#afficheUneTable').prepend("<br><br><button id='desinscription' class='btn btn-default'>Desinscription</button>");
+                    $("#desinscription").click(function(){
+                        $('#afficheUneTable').remove();
+                        desinscription(table.idTable);
+                        listTables();
+
+                    });
+                }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                console.log("erreur");
             }
-            else{
-                $('#afficheUneTable').prepend("<br><br><button id='desinscription' class='btn btn-default'>Desinscription</button>");
-                $("#desinscription").click(function(){
-                    $('#afficheUneTable').remove();
-                    desinscription(table.idTable);
-		            listTables();
-                    
-                });
-            }
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("erreur");
-		}
-	});
+        });
+    }
 }
 
 function desinscription(idTable){
     $.ajax({
-		type : 'DELETE',
-		contentType : 'application/json',
-		url : "/v1/table/"+idTable+"/desinscription/"+id,
-		dataType : "json",
-		success : function(data, textStatus, jqXHR) {
-			console.log("desinscription faite");
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			console.log("error delete table");
-		}
-	});
+        type : 'DELETE',
+        contentType : 'application/json',
+        url : "/v1/table/"+idTable+"/desinscription/"+id,
+        dataType : "json",
+        success : function(data, textStatus, jqXHR) {
+            console.log("desinscription faite");
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+            console.log("error delete table");
+        }
+    });
 }
 
 function afficheModifTable(table){
