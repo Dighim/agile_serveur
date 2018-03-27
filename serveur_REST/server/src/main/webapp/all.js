@@ -149,7 +149,7 @@ function putTable(idT, intitule, public, duree, lieu, date,heure , nbPers, etat,
 
 function putTableGeneric(idT, intitule, public, duree, lieu, date, heure, nbPers, etat, callback) {
 	var currentdate = new Date();
-	var dateTab = date.split("-");
+	var dateTab = date.split("/");
 	var year = dateTab[0];
 	var month = dateTab[1];
 	var day = dateTab[2];
@@ -385,8 +385,10 @@ function deleteTable(idTable){
 
 function afficheModifTable(table){
 	$("#createTable").hide();
-	$("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intitule' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieu' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='date' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heure' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='time' id='duree value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPers' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='public' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
+	$("#modifTable").remove();
+	$("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intitule' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieu' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='date' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heure' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='number' id='duree value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPers' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='public' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
 	$("#modifTab").click(function(){
+		console.log("Lieu: "+ $("#lieu").val());
 		putTable(
 			table.idTable,
 			$("#intitule").val(),
