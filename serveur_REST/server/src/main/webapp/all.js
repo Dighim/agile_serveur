@@ -215,13 +215,13 @@ function postTableGeneric(intitule, public, duree, lieu, date, heure, nbPers, ur
 	});
 }
 
-function listTables() {
-	listTablesGeneric("v1/table/");
+function listTables(table) {
+	listTablesGeneric("v1/table/", table);
 }
 
-function listTablesGeneric(url) {
+function listTablesGeneric(url, table) {
 	$.getJSON(url, function(data) {
-		afficheListTables(data)
+		afficheListTables(data, table)
 	});
 }
 
@@ -230,7 +230,7 @@ function afficheTable(data) {
 	$("#reponse").html(tableStringify(data));
 }
 
-function afficheListTables(data) {
+function afficheListTables(data, table) {
 	console.log("AfficheListTables length:"+ data.length);
 	var index = 0;
 	var html = "<div id='afficheTable'><button class='btn btn-default gotocreateTable'>Créer Table</button><table class=\"table table-bordered\"><tr><th>Titre</th><th>Créateur</th><th>Type</th><th>Jeu</th><th>Durée</th><th>Date</th><th>Heure</th><th>Lieu</th><th>Etat</th><th>Joueurs</th><th>Visibilité</th></tr>";
@@ -244,6 +244,7 @@ function afficheListTables(data) {
 	}
 	$("#afficheTable").remove();
 	$("body").append(html);
+    if(table != null) afficheTableDetails(table);
 	$(".gotocreateTable").click(function (){
 		console.log("gotocreatetable");
 		$("body>div").hide();
@@ -352,7 +353,7 @@ function afficheTableDetails(table){
 
 function gererInvit(table){
     $("#afficheUneTable").remove();
-    $("body").append("<input type='text' id='pseudoInvit'><button id=lancerInvit>Inviter</button>");
+    $("body").append("<input type='text' class='invit' id='pseudoInvit'><button class='invit' id=lancerInvit>Inviter</button>");
 
     $("#lancerInvit").click(function(){
         $.ajax({
@@ -367,8 +368,8 @@ function gererInvit(table){
                     url: "/v1/table/"+table.idTable+"/ins/"+data,
                     dataType : "json",
                     success : function(data2, textStatus, jqXHR) { 
-                        listTables();
-                        afficheTableDetails(table);
+                        $('.invit').remove();
+                        listTables(table);
                     },
                     error : function(jqXHR, textStatus, errorThrown) {
                         console.log("erreur");
@@ -419,8 +420,7 @@ function changeState(tableState, idTable){
 		url : "/v1/table/"+idTable+"/etat/"+newState,
 		dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-			listTables();
-			afficheTableDetails(table);
+			listTables(table);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log("erreur");
