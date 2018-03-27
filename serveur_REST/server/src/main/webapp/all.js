@@ -456,18 +456,18 @@ function deleteTable(idTable){
 function afficheModifTable(table){
     $("#createTable").hide();
     $("#modifTable").remove();
-    $("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intitule' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieu' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='date' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heure' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='text' id='duree value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPers' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='public' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
+    $("body").append("<div id='modifTable' class='jumbotron p-3 p-md-5 text-white bg-dark'> <br><br> <table class='table table-bordered'><tr> <td> Intitulé : <input type='text' id='intituleM' value='"+table.intitule+"'> </td><td><p style='text-align:center'>Id:"+table.idTable+"</p></td></tr><tr><td rowspan='5' style='vertical-align:middle'><center><p>Liste des joueurs</p></center></td><td> Lieu : <input type='text' id='lieuM' value='"+table.lieu+"'></td> </tr> <tr> <td>Date : <input type='date' id='dateM' value='"+table.date.split("T")[0]+"'>Heure : <input type='time' id='heureM' value='"+table.date.split("T")[1].replace("Z","")+"'><br></td></tr><tr><td>Duree :  <input type='text' id='dureeM' value='"+table.duree+"'></td> </tr><td>nbr de joueurs max :<input type='text' id='nbPersM' value='"+table.nbPers+"'><br></td><tr><td>Publique <input type='checkbox' id='publicM' name='public' checked></td></tr>  </table> <center><button id='modifTab' class='btn btn-default'>Modifier Table</button></center></div>");
     $("#modifTab").click(function(){
-        console.log("Lieu: "+ $("#lieu").text);
+        console.log("Lieu: "+ $("#lieu"));
         putTable(
             table.idTable,
-            $("#intitule").val(),
-            $("#public").is(":checked"), 
-            $("#duree").val(),
-            $("#lieu").val(),
-            $("#date").val(),
-            $("#heure").val(),
-            $("#nbPers").val(),
+            $("#intituleM").val(),
+            $("#publicM").is(":checked"), 
+            $("#dureeM").val(),
+			$("#lieuM").val(),
+            $("#dateM").val(),
+            $("#heureM").val(),
+            $("#nbPersM").val(),
             table.etat
             , function(){
                 listTables();
