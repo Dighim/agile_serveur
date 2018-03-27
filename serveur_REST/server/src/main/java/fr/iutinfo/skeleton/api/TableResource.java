@@ -57,6 +57,14 @@ public class TableResource {
 	}
     
     @GET
+    @Path("/{idTable}/ins")
+    public String getNbIns(@PathParam("idTable") int idTable){
+    	String ins=dao.getNbIns(idTable);
+		return ins;
+    }
+    
+    
+    @GET
     @Path("/{idTable}/users")
 	public List<UserDto> getUserFromTable(@PathParam("idTable") int idTable) throws SQLException {
     	List<User> users= dao.listUser(idTable);

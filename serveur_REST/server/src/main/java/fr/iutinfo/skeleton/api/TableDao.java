@@ -29,6 +29,10 @@ public interface TableDao {
     @GetGeneratedKeys
     int insert(@BindBean() Table table);
 	
+	@SqlQuery("select count(*) from inscriptions where idTable = :id")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    String getNbIns(@Bind("id") int id);
+	
 	@SqlQuery("select * from tables where intitule = :intitule")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Table findByTableName(@Bind("intitule") String intitule);
